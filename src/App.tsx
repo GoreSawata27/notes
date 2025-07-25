@@ -1,11 +1,10 @@
 import "./App.css";
-import { MOCK_COUNTRY_OPTIONS } from "./MachineCoding/PhoneBook/Constents";
-import PhoneBook from "./MachineCoding/PhoneBook/PhoneBook";
+import MachineCoding from "./MachineCoding/MachineCoding";
 
 function App() {
   return (
     <main>
-      <PhoneBook options={MOCK_COUNTRY_OPTIONS} />
+      <MachineCoding />
     </main>
   );
 }
