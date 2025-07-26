@@ -1,12 +1,16 @@
 // import PhoneBook from "./PhoneBook/PhoneBook";
 // import { MOCK_COUNTRY_OPTIONS } from "./PhoneBook/Constents";
-import TodoList from "./TodoList/TodoList";
+// import TodoList from "./TodoList/TodoList";
+
+import { categories } from "./NestedCheckbox/Data";
+import NestedCheckbox from "./NestedCheckbox/NestedCheckbox";
 
 export default function MachineCoding() {
   return (
     <>
       {/* <PhoneBook options={MOCK_COUNTRY_OPTIONS} /> */}
-      <TodoList />
+      {/* <TodoList /> */}
+      <NestedCheckbox categories={categories} />
     </>
   );
 }
