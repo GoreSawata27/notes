@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState, type ChangeEvent } from "react";
 
 export default function Select() {
   const [val, setVal] = useState("");
 
-  useEffect(() => {
-    console.log(val, "Current selected value");
-  }, [val]);
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setVal(e.target.value);
+  };
 
   return (
-    <select value={val} onChange={(e) => setVal(e.target.value)} id="selectBox">
+    <select value={val} onChange={handleChange} id="selectBox">
       <option value="" disabled>
-        Select a option
+        Select an option
       </option>
       <option value="one">One</option>
       <option value="two">Two</option>
