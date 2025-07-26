@@ -17,3 +17,16 @@ ul li,
 label {
   cursor: pointer;
 }
+
+button {
+  padding: 10px;
+  color: black;
+  border: 2px solid black;
+  margin: 5px 10px;
+}
+
+button:disabled {
+  color: gray;
+  border: 2px solid gray;
+  cursor: not-allowed;
+}
