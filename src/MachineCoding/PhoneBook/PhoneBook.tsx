@@ -1,8 +1,7 @@
 // Q : Show sample number in input box based on country code selection
+import { useEffect, useState, type ChangeEvent } from "react";
 
-import { useState, type ChangeEvent } from "react";
-
-interface CountryOption {
+interface countryOptions {
   country_code: string;
   calling_code: string;
   country_name: string;
@@ -10,43 +9,41 @@ interface CountryOption {
   format: string;
 }
 
-interface PhoneBookProps {
-  options: CountryOption[];
+interface phoneBookProps {
+  options: countryOptions[];
 }
 
-export default function PhoneBook({ options }: PhoneBookProps) {
-  const [selectedCountryCode, setSelectedCountryCode] = useState<string>("");
-  const [numberSample, setNumberSample] = useState<string>("");
+export default function PhoneBook({ options }: phoneBookProps) {
+  const [countryCode, setCountryCode] = useState<string>("");
+  const [placeholderSample, setPlaceHolderSample] = useState<string>("");
 
-  const handleCountryCodeChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const selectedCode = e.target.value;
-    setSelectedCountryCode(selectedCode);
-
-    const selectedData = options.find((opt) => opt.country_code === selectedCode);
-    if (selectedData) {
-      setNumberSample(selectedData.sample);
+  useEffect(() => {
+    if (options.length > 0) {
+      const defaultCountry = options[0];
+      setCountryCode(defaultCountry.country_code);
+      setPlaceHolderSample(defaultCountry.sample);
     }
+  }, [options]);
+
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const code = e.target.value;
+    setCountryCode(code);
+
+    const getSample = options.find((option) => option.country_code === code);
+    setPlaceHolderSample(getSample?.sample || "");
   };
 
   return (
     <>
-      <select
-        value={selectedCountryCode}
-        onChange={handleCountryCodeChange}
-        name="countryCode"
-        id="countryCodeSelect"
-      >
-        <option value="" disabled>
-          Select Country Code
-        </option>
-        {options.map((data) => (
-          <option key={data.country_code} value={data.country_code}>
-            {data.country_code}
+      <select name="phoneBook" id="countryCode" value={countryCode} onChange={handleChange}>
+        {options.map((option) => (
+          <option key={option.country_code} value={option.country_code}>
+            {option.country_code}
           </option>
         ))}
       </select>
 
-      <input type="text" placeholder={numberSample} />
+      <input type="text" placeholder={placeholderSample} />
     </>
   );
 }
