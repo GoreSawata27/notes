@@ -15,13 +15,14 @@ import ShowToast from "./Toaster/ShowToast";
 import { useToastContext } from "./Toaster/ToasterContext";
 import { useToast } from "./Toaster/useToast";
 import { useState } from "react";
+import StarRating from "./StarRating/StarRating";
 
 export default function MachineCoding() {
   const [questions, setQuestions] = useState("NestedCheckbox");
   const { toasts } = useToastContext();
   const { showToast } = useToast();
 
-  const options = ["PhoneBook", "TodoList", "NestedCheckbox", "Carousel", "Tab", "ShowToast"];
+  const options = ["StarRating", "PhoneBook", "TodoList", "NestedCheckbox", "Carousel", "Tab", "ShowToast"];
 
   return (
     <>
@@ -29,7 +30,7 @@ export default function MachineCoding() {
         value={questions}
         onChange={(e) => setQuestions(e.target.value)}
         name="Machine-coding-questions"
-        className=" block m-4 p-4 outline-2 "
+        className=" block m-4 p-4 outline-2 absolute top-4 left-4 "
       >
         {options.map((que) => (
           <option id={que} value={que}>
@@ -38,6 +39,7 @@ export default function MachineCoding() {
         ))}
       </select>
 
+      {questions === "StarRating" && <StarRating />}
       {questions === "PhoneBook" && <PhoneBook options={MOCK_COUNTRY_OPTIONS} />}
       {questions === "TodoList" && <TodoList />}
       {questions === "NestedCheckbox" && <NestedCheckbox categories={categories} />}
