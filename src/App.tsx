@@ -1,11 +1,12 @@
 import "./App.css";
 import MachineCoding from "./MachineCoding/MachineCoding";
+import ToasterContextProvider from "./MachineCoding/Toaster/ToasterContext";
 
 function App() {
   return (
-    <main>
+    <ToasterContextProvider>
       <MachineCoding />
-    </main>
+    </ToasterContextProvider>
   );
 }
 
