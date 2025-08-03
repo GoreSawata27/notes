@@ -16,20 +16,31 @@ import { useToastContext } from "./Toaster/ToasterContext";
 import { useToast } from "./Toaster/useToast";
 import { useState } from "react";
 import StarRating from "./StarRating/StarRating";
+import { AccordionData } from "./Accordion/AccData";
+import Accordion from "./Accordion/Accordion";
 
 export default function MachineCoding() {
-  const [questions, setQuestions] = useState("NestedCheckbox");
+  const [question, setQuestion] = useState("NestedCheckbox");
   const { toasts } = useToastContext();
   const { showToast } = useToast();
 
-  const options = ["StarRating", "PhoneBook", "TodoList", "NestedCheckbox", "Carousel", "Tab", "ShowToast"];
+  const options = [
+    "StarRating",
+    "PhoneBook",
+    "TodoList",
+    "NestedCheckbox",
+    "Carousel",
+    "Tab",
+    "ShowToast",
+    "Accordion",
+  ];
 
   return (
     <>
       <select
-        value={questions}
-        onChange={(e) => setQuestions(e.target.value)}
-        name="Machine-coding-questions"
+        value={question}
+        onChange={(e) => setQuestion(e.target.value)}
+        name="Machine-coding-question"
         className=" block m-4 p-4 outline-2 absolute top-4 left-4 "
       >
         {options.map((que) => (
@@ -39,13 +50,14 @@ export default function MachineCoding() {
         ))}
       </select>
 
-      {questions === "StarRating" && <StarRating />}
-      {questions === "PhoneBook" && <PhoneBook options={MOCK_COUNTRY_OPTIONS} />}
-      {questions === "TodoList" && <TodoList />}
-      {questions === "NestedCheckbox" && <NestedCheckbox categories={categories} />}
-      {questions === "Carousel" && <Carousel images={images} />}
-      {questions === "Tab" && <Tab tabs={tabs} />}
-      {questions === "ShowToast" && (
+      {question === "Accordion" && <Accordion list={AccordionData} />}
+      {question === "StarRating" && <StarRating />}
+      {question === "PhoneBook" && <PhoneBook options={MOCK_COUNTRY_OPTIONS} />}
+      {question === "TodoList" && <TodoList />}
+      {question === "NestedCheckbox" && <NestedCheckbox categories={categories} />}
+      {question === "Carousel" && <Carousel images={images} />}
+      {question === "Tab" && <Tab tabs={tabs} />}
+      {question === "ShowToast" && (
         <>
           Toaster
           <button onClick={() => showToast({ type: "error", message: "Something went wrong!" })}>
