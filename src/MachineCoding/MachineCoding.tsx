@@ -18,6 +18,7 @@ import { useState } from "react";
 import StarRating from "./StarRating/StarRating";
 import { AccordionData } from "./Accordion/AccData";
 import Accordion from "./Accordion/Accordion";
+import Dropdown from "./OverLayClose/Dropdown";
 
 export default function MachineCoding() {
   const [question, setQuestion] = useState("NestedCheckbox");
@@ -25,6 +26,7 @@ export default function MachineCoding() {
   const { showToast } = useToast();
 
   const options = [
+    "Dropdown",
     "StarRating",
     "PhoneBook",
     "TodoList",
@@ -50,6 +52,7 @@ export default function MachineCoding() {
         ))}
       </select>
 
+      {question === "Dropdown" && <Dropdown />}
       {question === "Accordion" && <Accordion list={AccordionData} />}
       {question === "StarRating" && <StarRating />}
       {question === "PhoneBook" && <PhoneBook options={MOCK_COUNTRY_OPTIONS} />}
