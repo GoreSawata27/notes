@@ -19,6 +19,8 @@ import StarRating from "./StarRating/StarRating";
 import { AccordionData } from "./Accordion/AccData";
 import Accordion from "./Accordion/Accordion";
 import Dropdown from "./OverLayClose/Dropdown";
+import InputEdit from "./InputEdit/InputEdit";
+import { Data } from "./InputEdit/Array";
 
 export default function MachineCoding() {
   const [question, setQuestion] = useState("NestedCheckbox");
@@ -27,6 +29,7 @@ export default function MachineCoding() {
 
   const options = [
     "Dropdown",
+    "Input Edit",
     "StarRating",
     "PhoneBook",
     "TodoList",
@@ -52,6 +55,7 @@ export default function MachineCoding() {
         ))}
       </select>
 
+      {question === "Input Edit" && <InputEdit data={Data} />}
       {question === "Dropdown" && <Dropdown />}
       {question === "Accordion" && <Accordion list={AccordionData} />}
       {question === "StarRating" && <StarRating />}
