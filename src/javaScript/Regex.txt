@@ -54,3 +54,13 @@ console.log(/\./.test("file.txt")); // true
 /^\d{4}-\d{2}-\d{2}$/
 
 
+
+  const str = `lorem ipsum20-02-1000 dolor 30/07/1999 sit amet 30/07/19999lorem ipsum dolor sit amet lorem ipsum dolor sit
+     ametvlorem20-02-1999 ipsum dolor sit ametlorem ipsum dolor20/1999 sit ametlorem 
+     ipsum dolor sit amet lorem ipsum dolor sit amet`;
+
+  console.log(/\d{2,4}[-/]\d{2}[-/]\d{2,4}/.test(str));
+
+  console.log(str.replace(/\d{2,4}[-/]\d{2}[-/]\d{2,4}/g, "Date"));
+
+// g to replace all dates , if not g then it will replace 1st one only 
