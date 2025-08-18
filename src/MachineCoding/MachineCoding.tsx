@@ -21,6 +21,8 @@ import Accordion from "./Accordion/Accordion";
 import Dropdown from "./OverLayClose/Dropdown";
 import InputEdit from "./InputEdit/InputEdit";
 import { Data } from "./InputEdit/Array";
+import SearchBar from "./SearchBar/SearchBar";
+import { OptionsData } from "./SearchBar/OptionsData";
 
 export default function MachineCoding() {
   const [question, setQuestion] = useState("NestedCheckbox");
@@ -38,6 +40,7 @@ export default function MachineCoding() {
     "Tab",
     "ShowToast",
     "Accordion",
+    "SearchBar",
   ];
 
   return (
@@ -55,6 +58,7 @@ export default function MachineCoding() {
         ))}
       </select>
 
+      {question === "SearchBar" && <SearchBar options={OptionsData} />}
       {question === "Input Edit" && <InputEdit data={Data} />}
       {question === "Dropdown" && <Dropdown />}
       {question === "Accordion" && <Accordion list={AccordionData} />}
