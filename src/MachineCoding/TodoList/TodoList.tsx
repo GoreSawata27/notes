@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 interface TodoType {
   id: number;
   todo: string;
+  status: boolean;
 }
 
 export default function TodoList() {
@@ -25,6 +26,7 @@ export default function TodoList() {
       const addTodo = {
         id: Date.now(),
         todo,
+        status: false,
       };
 
       setTodoList((prev) => [addTodo, ...prev]);
@@ -35,6 +37,10 @@ export default function TodoList() {
   const handelDelete = (id: number) => {
     const filterOutId = todoList.filter((todos) => todos.id !== id);
     setTodoList(filterOutId);
+  };
+
+  const handelUpdateStatus = (id: number) => {
+    setTodoList((prev) => prev.map((item) => (item.id === id ? { ...item, status: !item.status } : item)));
   };
 
   const handelEdit = (id: number) => {
@@ -49,20 +55,6 @@ export default function TodoList() {
   useEffect(() => {
     localStorage.setItem("todoList", JSON.stringify(todoList));
   }, [todoList]);
-
-  useEffect(() => {
-    const getStoredData = localStorage.getItem("todoList");
-    if (getStoredData) {
-      try {
-        const parsed = JSON.parse(getStoredData);
-        if (Array.isArray(parsed)) {
-          setTodoList(parsed);
-        }
-      } catch (err) {
-        console.error("Failed to parse localStorage data:", err);
-      }
-    }
-  }, []);
 
   return (
     <>
@@ -81,14 +73,17 @@ export default function TodoList() {
       </div>
 
       <ul className="flex flex-col gap-4 ">
-        {todoList.map((data) => (
-          <li key={data.id} className="flex gap-10">
-            <span>{data.todo}</span>
+        {todoList.map(({ id, todo, status }) => (
+          <li key={id} className="flex gap-10">
+            <span className={`${status ? "line-through" : ""}`}>{todo}</span>
             <span className="px-5">
-              <button className="p-2 outline" onClick={() => handelEdit(data.id)}>
+              <button className="p-2 outline" onClick={() => handelEdit(id)}>
                 Edit
               </button>
-              <button className="p-2 outline" onClick={() => handelDelete(data.id)}>
+              <button className="p-2 outline" onClick={() => handelUpdateStatus(id)}>
+                {status ? "Mark InComplete" : "Mark Completed"}
+              </button>
+              <button className="p-2 outline" onClick={() => handelDelete(id)}>
                 Delete
               </button>
             </span>
