@@ -1,5 +1,5 @@
-import axios from "axios";
-import { useEffect, useMemo, useState } from "react";
+import { useState, useMemo } from "react";
+import { useFetch } from "../../Hooks/useFetch";
 
 type Todo = {
   userId: number;
@@ -9,26 +9,13 @@ type Todo = {
 };
 
 export default function TableSearch() {
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [query, setQuery] = useState<string>("");
+  const {
+    data: todos,
+    isLoading,
+    error,
+  } = useFetch<Todo[]>("https://jsonplaceholder.typicode.com/todos", []);
+  const [query, setQuery] = useState("");
   const [statusSort, setStatusSort] = useState("");
-
-  const getTodos = async () => {
-    setIsLoading(true);
-    try {
-      const response = await axios.get("https://jsonplaceholder.typicode.com/todos");
-      setTodos(response.data);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getTodos();
-  }, []);
 
   const filteredTodos = useMemo(() => {
     const value = query.toLowerCase();
@@ -36,8 +23,7 @@ export default function TableSearch() {
   }, [todos, query]);
 
   const sortedTodos = useMemo(() => {
-    if (statusSort === "") return filteredTodos;
-
+    if (!statusSort) return filteredTodos;
     return filteredTodos.filter((todo) => String(todo.completed) === statusSort);
   }, [filteredTodos, statusSort]);
 
@@ -58,6 +44,8 @@ export default function TableSearch() {
 
       <h2>Todos</h2>
 
+      {error && <p style={{ color: "red" }}>{error}</p>}
+
       <table>
         <thead>
           <tr>
@@ -72,7 +60,7 @@ export default function TableSearch() {
               <td colSpan={3}>Loading...</td>
             </tr>
           ) : (
-            sortedTodos.slice(0, 16).map(({ id, title, userId, completed }) => (
+            sortedTodos.slice(0, 12).map(({ id, title, userId, completed }) => (
               <tr key={id}>
                 <td>{title}</td>
                 <td>{userId}</td>
