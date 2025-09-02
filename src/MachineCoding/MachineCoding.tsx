@@ -23,6 +23,7 @@ import InputEdit from "./InputEdit/InputEdit";
 import { Data } from "./InputEdit/Array";
 import SearchBar from "./SearchBar/SearchBar";
 import { OptionsData } from "./SearchBar/OptionsData";
+import TableSearch from "./Interview/TableSearch";
 
 export default function MachineCoding() {
   const [question, setQuestion] = useState("NestedCheckbox");
@@ -31,6 +32,7 @@ export default function MachineCoding() {
 
   const options = [
     "Dropdown",
+    "TableSearch",
     "Input Edit",
     "StarRating",
     "PhoneBook",
@@ -52,13 +54,14 @@ export default function MachineCoding() {
         className=" block m-4 p-4 outline-2 absolute top-4 left-4 "
       >
         {options.map((que) => (
-          <option id={que} value={que}>
+          <option key={que} id={que} value={que}>
             {que}
           </option>
         ))}
       </select>
 
       {question === "SearchBar" && <SearchBar options={OptionsData} />}
+      {question === "TableSearch" && <TableSearch />}
       {question === "Input Edit" && <InputEdit data={Data} />}
       {question === "Dropdown" && <Dropdown />}
       {question === "Accordion" && <Accordion list={AccordionData} />}
