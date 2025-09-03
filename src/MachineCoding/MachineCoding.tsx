@@ -24,6 +24,7 @@ import { Data } from "./InputEdit/Array";
 import SearchBar from "./SearchBar/SearchBar";
 import { OptionsData } from "./SearchBar/OptionsData";
 import TableSearch from "./Interview/TableSearch";
+import TodoApp from "../Hooks/Reducer";
 
 export default function MachineCoding() {
   const [question, setQuestion] = useState("NestedCheckbox");
@@ -32,6 +33,7 @@ export default function MachineCoding() {
 
   const options = [
     "Dropdown",
+    "Reducer",
     "TableSearch",
     "Input Edit",
     "StarRating",
@@ -61,6 +63,7 @@ export default function MachineCoding() {
       </select>
 
       {question === "SearchBar" && <SearchBar options={OptionsData} />}
+      {question === "Reducer" && <TodoApp />}
       {question === "TableSearch" && <TableSearch />}
       {question === "Input Edit" && <InputEdit data={Data} />}
       {question === "Dropdown" && <Dropdown />}
