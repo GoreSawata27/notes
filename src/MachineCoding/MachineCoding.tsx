@@ -27,6 +27,8 @@ import TableSearch from "./Interview/TableSearch";
 import TodoApp from "../Hooks/Reducer";
 import Form from "./Interview/Form/Form";
 import { formDataList } from "./Interview/Form/FormData";
+import NestedComments from "./NestedComments/NestedComments";
+import { comments } from "./NestedComments/Data";
 
 export default function MachineCoding() {
   const [question, setQuestion] = useState("NestedCheckbox");
@@ -37,6 +39,7 @@ export default function MachineCoding() {
     "Dropdown",
     "Form",
     "Reducer",
+    "Nested Comments",
     "TableSearch",
     "Input Edit",
     "StarRating",
@@ -66,6 +69,7 @@ export default function MachineCoding() {
       </select>
 
       {question === "SearchBar" && <SearchBar options={OptionsData} />}
+      {question === "Nested Comments" && <NestedComments comments={comments} />}
       {question === "Reducer" && <TodoApp />}
       {question === "Form" && <Form list={formDataList} />}
       {question === "TableSearch" && <TableSearch />}
