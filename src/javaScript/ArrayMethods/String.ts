@@ -1,5 +1,7 @@
-// The at() method returns the character at the given index, supports negative indices.
 const str = "Hello";
+
+// The at() method returns the character at the given index, supports negative indices.
+console.log(str.length); // 5
 console.log(str.at(1)); // "e"
 console.log(str.at(-1)); // "o"
 
