@@ -61,3 +61,25 @@ let inf = 1 / 0; // output: Infinity
 
 // NaN: represents not-a-number
 let nan = Math.sqrt(-1); // output: NaN
+
+// other
+
+// max - min + 1 = total possible numbers
+
+// Math.floor(Math.random() * (max - min + 1)) + min
+
+const a = Math.floor(Math.random() * (20 - 10 + 1)) + 10;
+console.log(a);
+
+// other
+
+// ?? (Nullish Coalescing) Operator in JavaScript
+// Definition
+
+// The ?? operator returns the right-hand value only when the left-hand value is null or undefined.
+
+let score = 0;
+let result = score ?? 10; // output: 0
+
+score || 10; // output: 10
+score ?? 10; // output: 0
