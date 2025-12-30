@@ -83,3 +83,20 @@ let result = score ?? 10; // output: 0
 
 score || 10; // output: 10
 score ?? 10; // output: 0
+
+// Compound Operators in JavaScript
+
+// Compound operators combine a mathematical operation with an assignment (=) in a shorter form.
+
+/* 
+
+| Operator | Long Form    | Short Form |
+| -------- | ------------ | ---------- |
+| `+=`     | `x = x + y`  | `x += y`   |
+| `-=`     | `x = x - y`  | `x -= y`   |
+| `*=`     | `x = x * y`  | `x *= y`   |
+| `/=`     | `x = x / y`  | `x /= y`   |
+| `%=`     | `x = x % y`  | `x %= y`   |
+| `**=`    | `x = x ** y` | `x **= y`  |
+
+*/
