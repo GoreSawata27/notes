@@ -133,3 +133,17 @@ console.log(Array.from("123")); // ["1", "2", "3"]
 
 // The Array.of() (static method) creates an array from arguments.
 console.log(Array.of(1, 2, 3)); // [1, 2, 3]
+
+//
+
+// Multidimensional Arrays in JavaScript
+// Definition
+
+// A multidimensional array is an array that contains other arrays as its elements.
+
+const arr22 = [
+  [1, 2, 3],
+  [4, 5, 6],
+];
+
+console.log(arr22[0][1]); // output: 2
