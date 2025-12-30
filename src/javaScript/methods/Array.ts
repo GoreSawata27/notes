@@ -147,3 +147,16 @@ const arr22 = [
 ];
 
 console.log(arr22[0][1]); // output: 2
+
+/*
+
+interview
+
+| Method      | Creates New Array | Updates Existing Array   | Returns                 |
+| ----------- | ----------------- | ------------------------ | ----------------------- |
+| **forEach** | ❌ No              | ✅ Yes (if you modify it) | `undefined`             |
+| **map**     | ✅ Yes             | ❌ No                     | New array               |
+| **filter**  | ✅ Yes             | ❌ No                     | New array (filtered)    |
+| **reduce**  | ❌ No              | ❌ No                     | Single value (any type) |
+
+*/
