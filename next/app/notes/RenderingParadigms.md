@@ -7,108 +7,205 @@
 | CSR       | Client only            | Slower first load | Weak      |
 | PPR       | Hybrid                 | Fast              | Excellent |
 
-# Next.js Rendering Paradigms
-
-## SSR – Server-Side Rendering
-
-HTML is generated on the **server for every request** using fresh data.
+# Rendering Paradigms in Next.js
 
 ---
 
-## SSG – Static Site Generation
+## Static Rendering (SSG)
 
-HTML is generated **at build time** and reused for all users.
+Route is rendered **once at build time** and served from CDN.
+
+- HTML is generated during `next build`
+- Same HTML is reused for all users
+- Very fast and cache-friendly
+- Default behavior in App Router
+
+**Used when:**
+
+- Data does not change often
+- Page is public and same for everyone
+- No user-specific data
+
+**Examples:**
+
+- Landing pages
+- Docs
+- Blogs
 
 ---
 
-## ISR – Incremental Static Regeneration
+## Dynamic Rendering (SSR)
 
-Static HTML that is **revalidated and regenerated in the background** after a set time.
+Route is rendered **on every request** on the server.
+
+- HTML is generated at request time
+- Always shows latest data
+- Slower than static rendering
+- Cannot be cached globally
+
+**Triggered when:**
+
+- Using `cookies()` or `headers()`
+- Using `fetch` with `cache: "no-store"`
+- Marked as `force-dynamic`
+
+**Used when:**
+
+- User-specific or role-based pages
+- Authenticated dashboards
+- Real-time or frequently changing data
 
 ---
 
-## CSR – Client-Side Rendering
+## Incremental Static Regeneration (ISR)
+
+Static page that is **re-generated in the background** after a given time.
+
+- First request serves cached HTML
+- New HTML is generated after revalidation time
+- Combines speed of static + freshness
+
+**Used when:**
+
+- Data updates periodically
+- Content does not need real-time updates
+
+**Examples:**
+
+- Blog posts
+- Product listings
+- Marketing pages with updates
+
+---
+
+## Client-Side Rendering (CSR)
 
 Rendering happens **in the browser** after JavaScript loads.
+
+- Server sends minimal HTML
+- Data is fetched on client
+- Slower first load
+- SEO is weaker
+
+**Used when:**
+
+- Heavy interactivity
+- Real-time updates
+- Charts, filters, modals
 
 ---
 
 ## Streaming Rendering
 
-HTML is **sent in chunks** as data resolves instead of waiting for everything.
+HTML is **sent in parts (chunks)** as data becomes available.
+
+- Page does not wait for all data
+- Improves perceived performance
+- Works with React Suspense
+
+**Used when:**
+
+- Page has multiple independent sections
+- Some data is slow
 
 ---
 
 ## Partial Prerendering (PPR)
 
-Static page shell with **dynamic parts rendered separately**.
+Static page shell with **dynamic sections rendered separately**.
 
----
+- Layout and shell are static
+- Dynamic parts stream later
+- Best of static and dynamic
 
-## Static Rendering
+**Used when:**
 
-Route is rendered **once at build time** and served from CDN.
-
----
-
-## Dynamic Rendering
-
-Route is rendered **on every request** on the server.
+- Mostly static page
+- Small dynamic widgets inside
 
 ---
 
 ## Server Components (RSC)
 
-Components that render **only on the server** and send no JS to the browser.
+Components rendered **only on the server**.
+
+- No JS sent to browser
+- Can access backend resources
+- Better performance
+
+**Used when:**
+
+- Data fetching
+- Rendering static UI
+- No interactivity required
 
 ---
 
 ## Client Components
 
-Components that render on the client and support **interactivity and hooks**.
+Components rendered **on the client**.
+
+- Supports hooks and state
+- Required for interactivity
+- Adds JS to bundle
+
+**Used when:**
+
+- Buttons, forms, modals
+- Charts, animations
+- WebSockets
 
 ---
 
 ## Hydration
 
-Process where client JavaScript **adds interactivity** to server-rendered HTML.
+Process where client JavaScript **attaches interactivity** to server-rendered HTML.
+
+- Happens after HTML is loaded
+- Makes page interactive
+- Required for client components
 
 ---
 
 ## Edge Rendering
 
-Rendering happens **on edge servers**, closer to the user.
+Rendering happens on **edge servers close to users**.
 
----
+- Lower latency
+- Faster response
+- Limited Node APIs
 
-## Prefetching
+**Used when:**
 
-Next.js **loads code and data early** before navigation.
+- Auth checks
+- Personalization
+- Global users
 
 ---
 
 ## Revalidation
 
-Refreshing static data **without rebuilding the entire app**.
+Process of updating static content **without rebuilding the app**.
+
+- Happens in background
+- Keeps data fresh
+- Used with ISR
 
 ---
 
-## Fallback Rendering
+## Prefetching
 
-Showing a temporary UI while **content is loading or generating**.
+Next.js automatically **fetches code and data ahead of navigation**.
 
----
-
-## CSR-only Page
-
-Page rendered **entirely in the browser**, no server HTML.
+- Improves navigation speed
+- Happens on hover or viewport
 
 ---
 
-## Rule
+## Interview Mental Model
 
-- Static first
+- Static by default
 - ISR if data changes
-- SSR for user-specific data
+- SSR for user-specific content
 - Stream slow parts
 - CSR only when needed
