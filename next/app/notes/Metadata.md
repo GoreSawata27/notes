@@ -73,9 +73,10 @@ Used when metadata depends on params or API data.
 
 ```ts
 export async function generateMetadata({ params }) {
+  const { id } = await params;
   return {
-    title: `User ${params.id}`,
-    description: `Profile of user ${params.id}`,
+    title: `User ${id}`,
+    description: `Profile of user ${id}`,
   };
 }
 ```
