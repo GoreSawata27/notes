@@ -23,7 +23,7 @@ import InputEdit from "./InputEdit/InputEdit";
 import { Data } from "./InputEdit/Array";
 import SearchBar from "./SearchBar/SearchBar";
 import { OptionsData } from "./SearchBar/OptionsData";
-import TableSearch from "./Interview/TableSearch";
+// import TableSearch from "./Interview/TableSearch";
 import TodoApp from "../React/Reducer";
 import Form from "./Interview/Form/Form";
 import { formDataList } from "./Interview/Form/FormData";
@@ -40,7 +40,7 @@ export default function MachineCoding() {
     "Form",
     "Reducer",
     "Nested Comments",
-    "TableSearch",
+    // "TableSearch",
     "Input Edit",
     "StarRating",
     "PhoneBook",
@@ -72,7 +72,7 @@ export default function MachineCoding() {
       {question === "Nested Comments" && <NestedComments comments={comments} />}
       {question === "Reducer" && <TodoApp />}
       {question === "Form" && <Form list={formDataList} />}
-      {question === "TableSearch" && <TableSearch />}
+      {/* {question === "TableSearch" && <TableSearch />} */}
       {question === "Input Edit" && <InputEdit data={Data} />}
       {question === "Dropdown" && <Dropdown />}
       {question === "Accordion" && <Accordion list={AccordionData} />}
