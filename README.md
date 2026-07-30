@@ -46,11 +46,17 @@ Each exercise has its own URL and sidebar nav under `/practice`:
 
 ### Learn (Next.js)
 
+Start at [`/learn`](/learn) for the **interview summary table**, then open each demo:
+
 | Path | Topic |
 |------|--------|
-| `/learn/rendering` | Static rendering (SSG) |
-| `/learn/ssr-demo` | Dynamic rendering (SSR) |
+| `/learn` | Cheat sheet: CSR, SSR, SSG, ISR, PPR, Streaming |
+| `/learn/csr-demo` | Client-side rendering |
+| `/learn/ssr-demo` | Server-side rendering |
+| `/learn/rendering` | Static site generation (SSG) |
 | `/learn/isr-demo` | ISR (`revalidate: 60`) |
+| `/learn/streaming-demo` | Streaming + Suspense |
+| `/learn/ppr-demo` | Partial prerendering pattern |
 | `/learn/metadata-demo` | Metadata API |
 
 ### Markdown notes (repo)

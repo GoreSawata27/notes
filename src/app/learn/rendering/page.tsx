@@ -11,6 +11,9 @@ export default function RenderingPage() {
   return (
     <article>
       <h1 className="mb-4 text-2xl font-bold">Static rendering (SSG)</h1>
+      <p className="mb-2 text-zinc-600 dark:text-zinc-400">
+        <strong>Interview:</strong> SEO excellent · fastest · stale until rebuild.
+      </p>
       <p className="mb-4 text-zinc-600 dark:text-zinc-400">
         This page is a Server Component with no dynamic APIs. Next.js pre-renders it at build time. Compare
         with{" "}

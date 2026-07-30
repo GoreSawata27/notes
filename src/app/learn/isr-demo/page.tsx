@@ -14,6 +14,9 @@ export default async function IsrDemoPage() {
   return (
     <article>
       <h1 className="mb-4 text-2xl font-bold">Incremental Static Regeneration (ISR)</h1>
+      <p className="mb-2 text-zinc-600 dark:text-zinc-400">
+        <strong>Interview:</strong> SEO excellent · very fast · fresh after revalidation window.
+      </p>
       <p className="mb-4 text-zinc-600 dark:text-zinc-400">
         Data is fetched with <code className="rounded bg-zinc-100 px-1 dark:bg-zinc-800">revalidate: 60</code>
         . Cached HTML is served, then refreshed in the background after 60s.

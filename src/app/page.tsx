@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PRACTICE_ROUTES } from "@/lib/practice-routes";
+import { LEARN_CONCEPTS, LEARN_EXTRA } from "@/lib/learn-routes";
 
 export const metadata: Metadata = {
   title: {
@@ -11,10 +12,9 @@ export const metadata: Metadata = {
 };
 
 const LEARN_LINKS = [
-  { href: "/learn/rendering", label: "Static rendering (SSG)" },
-  { href: "/learn/ssr-demo", label: "Dynamic rendering (SSR)" },
-  { href: "/learn/isr-demo", label: "ISR demo" },
-  { href: "/learn/metadata-demo", label: "Metadata API" },
+  { href: "/learn", label: "Rendering cheat sheet (all concepts)" },
+  ...LEARN_CONCEPTS.map(({ href, title }) => ({ href, label: `${title} demo` })),
+  ...LEARN_EXTRA.map(({ href, title }) => ({ href, label: title })),
 ];
 
 export default function HomePage() {
