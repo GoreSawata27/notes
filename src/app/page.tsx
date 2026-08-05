@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PRACTICE_ROUTES } from "@/lib/practice-routes";
 import { LEARN_CONCEPTS, LEARN_EXTRA } from "@/lib/learn-routes";
+import { REDUX_LEARN_EXAMPLES } from "@/lib/redux-learn-routes";
 
 export const metadata: Metadata = {
   title: {
@@ -15,6 +16,7 @@ const LEARN_LINKS = [
   { href: "/learn", label: "Rendering cheat sheet (all concepts)" },
   ...LEARN_CONCEPTS.map(({ href, title }) => ({ href, label: `${title} demo` })),
   ...LEARN_EXTRA.map(({ href, title }) => ({ href, label: title })),
+  ...REDUX_LEARN_EXAMPLES.map(({ href, title }) => ({ href, label: title })),
 ];
 
 export default function HomePage() {
@@ -54,8 +56,9 @@ export default function HomePage() {
       <section>
         <h2 className="mb-3 text-lg font-semibold">Markdown notes</h2>
         <p className="text-sm text-zinc-600 dark:text-zinc-400">
-          See <code className="rounded bg-zinc-100 px-1 dark:bg-zinc-800">content/notes/next/</code> in
-          the repo (rendering paradigms, metadata, routes).
+          See <code className="rounded bg-zinc-100 px-1 dark:bg-zinc-800">content/notes/next/</code> and{" "}
+          <code className="rounded bg-zinc-100 px-1 dark:bg-zinc-800">src/app/learn/redux/**/NOTES.md</code>{" "}
+          in the repo.
         </p>
       </section>
     </div>

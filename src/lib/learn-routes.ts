@@ -71,4 +71,9 @@ export const LEARN_EXTRA = [
     title: "Metadata API",
     description: "SEO tags, Open Graph, title templates",
   },
+  {
+    href: "/learn/redux",
+    title: "Redux & RTK",
+    description: "Six examples: counter → login flow → RTK Query",
+  },
 ] as const;
