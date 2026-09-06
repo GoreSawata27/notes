@@ -1,0 +1,596 @@
+.notes-app {
+  --bg: #0b1220;
+  --panel: #121a2b;
+  --line: #243049;
+  --text: #e8eefc;
+  --muted: #8fa3c1;
+  --accent: #3d9cf0;
+  --accent-2: #2dd4bf;
+  --warn: #f59e0b;
+  box-sizing: border-box;
+  min-height: 100vh;
+  height: 100vh;
+  overflow: auto;
+  color: var(--text);
+  font-family: var(--font-notes-sans), Outfit, system-ui, sans-serif;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, #16325a 0%, transparent 55%),
+    radial-gradient(900px 500px at 100% 0%, #0f3d3a 0%, transparent 45%), var(--bg);
+  scroll-behavior: smooth;
+}
+
+.notes-app *,
+.notes-app *::before,
+.notes-app *::after {
+  box-sizing: border-box;
+}
+
+.notes-app code {
+  font-family: var(--font-notes-mono), "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.86em;
+  background: #0a101c;
+  border: 1px solid #1d2a40;
+  border-radius: 0.3rem;
+  padding: 0.05rem 0.3rem;
+}
+
+.notes-app pre {
+  font-family: var(--font-notes-mono), "IBM Plex Mono", ui-monospace, monospace;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0.55rem 0 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  background: #0a101c;
+  border: 1px solid #1d2a40;
+  border-radius: 0.55rem;
+  padding: 0.7rem 0.8rem;
+  color: #cfe0ff;
+}
+
+.notes-app pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+}
+
+.notes-app,
+.notes-app .sidebar,
+.notes-app .main {
+  scrollbar-width: thin;
+  scrollbar-color: #3b587c transparent;
+}
+
+.notes-app ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.notes-app ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.notes-app ::-webkit-scrollbar-thumb {
+  background: #2a3f5e;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.notes-app ::-webkit-scrollbar-thumb:hover {
+  background: #3d9cf0;
+  background-clip: padding-box;
+}
+
+.notes-app .shell {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  min-height: 100%;
+  height: 100%;
+}
+
+.notes-app .sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: auto;
+  border-right: 1px solid var(--line);
+  background: rgba(11, 18, 32, 0.92);
+  backdrop-filter: blur(10px);
+  padding: 1.25rem 1rem 2rem;
+}
+
+.notes-app .brand {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.notes-app .brand-sub {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin: 0.4rem 0 1rem;
+  line-height: 1.45;
+}
+
+.notes-app .nav-link {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  border-radius: 0.65rem;
+  padding: 0.5rem 0.7rem;
+  margin-bottom: 0.2rem;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.84rem;
+  text-decoration: none;
+}
+
+.notes-app .nav-link:hover {
+  background: var(--panel);
+  color: var(--text);
+}
+
+.notes-app .nav-link .n {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.72rem;
+  margin-right: 0.35rem;
+}
+
+.notes-app .links {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.notes-app .links a {
+  color: var(--accent-2);
+  text-decoration: none;
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.notes-app .main {
+  min-width: 0;
+  min-height: 0;
+  height: 100vh;
+  overflow: auto;
+}
+
+.notes-app .topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid var(--line);
+  background: rgba(11, 18, 32, 0.88);
+  backdrop-filter: blur(12px);
+  padding: 1rem 1.25rem;
+}
+
+.notes-app .search {
+  width: 100%;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  outline: none;
+  font: inherit;
+}
+
+.notes-app .search:focus {
+  border-color: #3b6ea8;
+  box-shadow: 0 0 0 3px rgba(61, 156, 240, 0.15);
+}
+
+.notes-app .content {
+  padding: 1.25rem;
+  max-width: 920px;
+}
+
+.notes-app .hero {
+  border: 1px solid var(--line);
+  background: linear-gradient(160deg, #152033, #101826 70%);
+  border-radius: 1rem;
+  padding: 1.15rem 1.25rem;
+  margin-bottom: 1.1rem;
+}
+
+.notes-app .pill {
+  display: inline-flex;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  background: rgba(45, 212, 191, 0.1);
+  border: 1px solid rgba(45, 212, 191, 0.25);
+  border-radius: 999px;
+  padding: 0.22rem 0.55rem;
+}
+
+.notes-app .pill-warn {
+  color: var(--warn);
+  background: rgba(245, 158, 11, 0.1);
+  border-color: rgba(245, 158, 11, 0.25);
+  margin-left: 0.35rem;
+}
+
+.notes-app .hero h1 {
+  margin: 0.55rem 0 0;
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.notes-app .hero p {
+  margin: 0.45rem 0 0;
+  color: var(--muted);
+  line-height: 1.5;
+  font-size: 0.94rem;
+}
+
+.notes-app .topic {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  border-radius: 0.85rem;
+  margin-bottom: 0.85rem;
+  overflow: hidden;
+}
+
+.notes-app .topic-head {
+  padding: 0.9rem 1.05rem;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.notes-app .topic-head h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+}
+
+.notes-app .count {
+  font-family: var(--font-notes-mono), "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.notes-app .qa {
+  border-top: 1px solid #1a2538;
+}
+
+.notes-app .qa:first-of-type {
+  border-top: none;
+}
+
+.notes-app .qa summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 0.9rem 1.05rem;
+  font-weight: 600;
+  font-size: 0.94rem;
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+}
+
+.notes-app .qa summary::-webkit-details-marker {
+  display: none;
+}
+
+.notes-app .qa summary:hover {
+  background: #162235;
+}
+
+.notes-app .qa[open] summary {
+  background: #152033;
+}
+
+.notes-app .q-num {
+  flex-shrink: 0;
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-top: 0.15rem;
+  font-family: var(--font-notes-mono), "IBM Plex Mono", ui-monospace, monospace;
+}
+
+.notes-app .q-title {
+  flex: 1;
+}
+
+.notes-app .answer {
+  padding: 0 1.05rem 1.05rem 2.55rem;
+  color: #c5d2e8;
+  font-size: 0.93rem;
+  line-height: 1.6;
+}
+
+.notes-app .answer p {
+  margin: 0 0 0.55rem;
+}
+
+.notes-app .answer ul,
+.notes-app .answer ol {
+  margin: 0.25rem 0 0.55rem;
+  padding-left: 1.15rem;
+}
+
+.notes-app .answer li {
+  margin: 0.2rem 0;
+}
+
+.notes-app .answer table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  margin: 0.55rem 0;
+}
+
+.notes-app .answer th,
+.notes-app .answer td {
+  border: 1px solid var(--line);
+  padding: 0.4rem 0.5rem;
+  text-align: left;
+}
+
+.notes-app .say {
+  margin: 0 0 0.55rem;
+  padding: 0.75rem 0.85rem;
+  background: #0a101c;
+  border: 1px solid #1d2a40;
+  border-radius: 0.55rem;
+  color: #d7e6ff;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.notes-app .def {
+  margin: 0 0 0.55rem;
+  padding: 0.55rem 0.75rem;
+  background: rgba(61, 156, 240, 0.08);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 0.5rem 0.5rem 0;
+  color: #a8c4e8;
+  font-size: 0.86rem;
+  font-style: italic;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.notes-app .pill-info {
+  color: #93c5fd;
+  background: rgba(147, 197, 253, 0.1);
+  border-color: rgba(147, 197, 253, 0.25);
+  margin-left: 0.35rem;
+}
+
+.notes-app .profile-panel {
+  border: 1px solid var(--line);
+  background: linear-gradient(160deg, #1a2840, #121a2b 70%);
+  border-radius: 1rem;
+  padding: 1.15rem 1.25rem;
+  margin-bottom: 1.1rem;
+  font-size: 0.93rem;
+  line-height: 1.6;
+  color: #c5d2e8;
+}
+
+.notes-app .profile-panel p {
+  margin: 0 0 0.5rem;
+}
+
+.notes-app .profile-panel ul,
+.notes-app .profile-panel ol {
+  margin: 0.35rem 0;
+  padding-left: 1.25rem;
+}
+
+.notes-app .profile-panel strong {
+  color: var(--text);
+}
+
+.notes-app .hub-section-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 2rem 0 0.85rem;
+  letter-spacing: -0.01em;
+}
+
+.notes-app .hub-section-company {
+  color: var(--accent-2);
+}
+
+.notes-app .card-company {
+  border-color: rgba(45, 212, 191, 0.35);
+  background: linear-gradient(160deg, #152033, #121a2b 80%);
+}
+
+.notes-app .card-company:hover {
+  border-color: var(--accent-2);
+}
+
+.notes-app .company-badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  background: rgba(45, 212, 191, 0.12);
+  border: 1px solid rgba(45, 212, 191, 0.3);
+  border-radius: 999px;
+  padding: 0.18rem 0.5rem;
+  margin-bottom: 0.25rem;
+  width: fit-content;
+}
+
+.notes-app .cards-company {
+  margin-bottom: 0.5rem;
+}
+
+.notes-app .tip {
+  margin-top: 0.55rem;
+  border-left: 3px solid var(--warn);
+  background: rgba(245, 158, 11, 0.08);
+  padding: 0.55rem 0.75rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+  color: #f6d9a3;
+  font-size: 0.86rem;
+}
+
+.notes-app .mistake {
+  margin-top: 0.55rem;
+  border-left: 3px solid #f87171;
+  background: rgba(248, 113, 113, 0.08);
+  padding: 0.55rem 0.75rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+  color: #fecaca;
+  font-size: 0.86rem;
+}
+
+.notes-app .empty {
+  color: var(--muted);
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.notes-app .topic[hidden],
+.notes-app .qa[hidden] {
+  display: none;
+}
+
+.notes-app .hub-page {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 4.5rem;
+}
+
+.notes-app .hub-brand {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  margin: 0 0 0.75rem;
+}
+
+.notes-app .hub-brand span {
+  background: linear-gradient(120deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.notes-app .hub-lede {
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.55;
+  max-width: 42rem;
+  margin: 0 0 2rem;
+}
+
+.notes-app .cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.85rem;
+}
+
+.notes-app .card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  border-radius: 0.85rem;
+  padding: 1rem 1.1rem;
+  transition:
+    border-color 0.15s,
+    transform 0.15s;
+}
+
+.notes-app .card:hover {
+  border-color: #35557f;
+  transform: translateY(-2px);
+}
+
+.notes-app .card strong {
+  font-size: 1.05rem;
+}
+
+.notes-app .card span {
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.notes-app .card .meta {
+  font-family: var(--font-notes-mono), "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.72rem;
+  color: var(--accent-2);
+  margin-top: 0.35rem;
+}
+
+.notes-app .study-panel {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  border-radius: 0.85rem;
+  padding: 1.1rem 1.25rem;
+  margin: 2rem 0 1.5rem;
+}
+
+.notes-app .study-panel h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.15rem;
+}
+
+.notes-app .study-panel table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.notes-app .study-panel th,
+.notes-app .study-panel td {
+  text-align: left;
+  padding: 0.45rem 0.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.notes-app .study-panel th {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.notes-app .hub-foot {
+  color: var(--muted);
+  font-size: 0.88rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 900px) {
+  .notes-app .shell {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .notes-app .sidebar {
+    position: relative;
+    height: auto;
+    max-height: 40vh;
+  }
+
+  .notes-app .main {
+    height: auto;
+    overflow: visible;
+  }
+}

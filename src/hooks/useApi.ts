@@ -1,7 +1,6 @@
 "use client";
 import { useState, useCallback } from "react";
 import axios, { AxiosRequestConfig } from "axios";
-import { showError } from "@/utils/showToaster";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
 
@@ -66,7 +65,6 @@ export function useApi<T = any>() {
         return res.data;
       } catch (err: any) {
         setError(err.message || "API request failed");
-        showError(err || "API request failed");
         throw err;
       } finally {
         setIsLoading(false);

@@ -2,15 +2,18 @@ import Link from "next/link";
 
 export default function LearnLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mx-auto max-w-2xl px-6 py-12">
-      <div className="mb-6 flex flex-wrap gap-4 text-sm">
-        <Link href="/" className="text-zinc-600 hover:underline dark:text-zinc-400">
+    <div className="mx-auto w-full max-w-4xl px-6 py-12">
+      <nav className="mb-8 flex flex-wrap items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400">
+        <Link href="/" className="hover:text-zinc-900 hover:underline dark:hover:text-zinc-200">
           ← Home
         </Link>
-        <Link href="/learn" className="text-zinc-600 hover:underline dark:text-zinc-400">
+        <span aria-hidden className="text-zinc-400 dark:text-zinc-600">
+          /
+        </span>
+        <Link href="/learn" className="hover:text-zinc-900 hover:underline dark:hover:text-zinc-200">
           Interview summary
         </Link>
-      </div>
+      </nav>
       {children}
     </div>
   );

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import ToasterProvider from "@/providers/ToasterProvider";
+import ToasterContextProvider from "./_components/ToasterContext";
 import ShowToastDemo from "./_components/ShowToastDemo";
 
 export const metadata: Metadata = {
@@ -8,8 +8,8 @@ export const metadata: Metadata = {
 
 export default function ShowToastPage() {
   return (
-    <ToasterProvider>
+    <ToasterContextProvider>
       <ShowToastDemo />
-    </ToasterProvider>
+    </ToasterContextProvider>
   );
 }

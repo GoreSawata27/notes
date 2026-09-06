@@ -25,6 +25,48 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+html,
+body {
+  scrollbar-width: thin;
+  scrollbar-color: #52525b transparent;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #52525b transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #3f3f46;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #71717a;
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
 button,
 ul li,
 label {
