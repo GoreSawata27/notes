@@ -16,26 +16,12 @@ function badgeLabel(badge: ListItem["badge"]) {
   return null;
 }
 
-function QuestionCard({
-  item,
-  open,
-  onToggle,
-  variant,
-}: {
-  item: ListItem;
-  open: boolean;
-  onToggle: (open: boolean) => void;
-  variant: NotesVariant;
-}) {
+function QuestionCard({ item, variant }: { item: ListItem; variant: NotesVariant }) {
   const badge = badgeLabel(item.badge);
   const tipLabel = variant === "learning" ? "Tip" : "Follow-up";
   const mistakeLabel = variant === "learning" ? "Try it" : "Common mistake";
   return (
-    <details
-      className={variant === "learning" ? "qa qa-learning" : "qa"}
-      open={open}
-      onToggle={(event) => onToggle(event.currentTarget.open)}
-    >
+    <details className={variant === "learning" ? "qa qa-learning" : "qa"}>
       <summary>
         <span className="q-num">{String(item.num).padStart(2, "0")}</span>
         <span className="q-title">
@@ -84,7 +70,6 @@ export function NotesTopicList({
   variant?: NotesVariant;
 }) {
   const [term, setTerm] = useState("");
-  const [openId, setOpenId] = useState<string | null>(null);
   const query = normalize(term);
 
   const visible = useMemo(() => {
@@ -112,7 +97,7 @@ export function NotesTopicList({
       <main className="content">
         {hero}
         {profile}
-        <div id="list">
+        <div id="list" key="notes-list">
           {visible.map((section) => (
             <section key={section.id} className="topic" id={section.id}>
               <div className="topic-head">
@@ -123,18 +108,7 @@ export function NotesTopicList({
               </div>
               {section.items.map((item) => {
                 const key = `${section.id}-${item.id}-${item.num}`;
-                return (
-                  <QuestionCard
-                    key={key}
-                    item={item}
-                    open={openId === key}
-                    variant={variant}
-                    onToggle={(isOpen) => {
-                      if (isOpen) setOpenId(key);
-                      else setOpenId((current) => (current === key ? null : current));
-                    }}
-                  />
-                );
+                return <QuestionCard key={key} item={item} variant={variant} />;
               })}
             </section>
           ))}

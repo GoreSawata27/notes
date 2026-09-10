@@ -1,4 +1,5 @@
 import type { MdBlock } from "@/lib/notes/types";
+import { CodeBlock } from "@/components/theme/CodeBlock";
 import { InlineMd } from "./InlineMd";
 
 export function MdBlocks({ blocks }: { blocks: MdBlock[] }) {
@@ -20,12 +21,7 @@ export function MdBlocks({ blocks }: { blocks: MdBlock[] }) {
           );
         }
         if (block.type === "code") {
-          return (
-            <pre key={index} data-lang={block.lang || undefined}>
-              {block.lang ? <span className="code-lang">{block.lang}</span> : null}
-              <code>{block.code}</code>
-            </pre>
-          );
+          return <CodeBlock key={index} code={block.code} lang={block.lang} />;
         }
         if (block.type === "ul") {
           return (

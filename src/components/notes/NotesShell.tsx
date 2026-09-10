@@ -61,7 +61,7 @@ export function NotesShell({
           }
           variant={variant}
           hero={
-            <section className="hero">
+            <section key="notes-hero" className="hero">
               <span className="pill">{pill}</span>
               <h1>{brand}</h1>
               <p>
@@ -72,7 +72,7 @@ export function NotesShell({
           }
           profile={
             profile && profile.length > 0 ? (
-              <section className="profile-panel">
+              <section key="notes-profile" className="profile-panel">
                 <MdBlocks blocks={profile} />
               </section>
             ) : null

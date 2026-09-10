@@ -1,0 +1,226 @@
+/*
+  THEME TOKEN ARCHITECTURE
+  ------------------------
+  Each [data-theme="..."] block sets source tokens only.
+  The :root bridge maps them to semantic tokens consumed by notes.css,
+  globals.css, and Tailwind utility classes.
+*/
+
+:root {
+  --foreground: var(--text-primary);
+  --muted-foreground: var(--text-secondary);
+  --card: var(--surface-elevated);
+  --secondary: var(--surface);
+  --ring: var(--primary);
+  --code-bg: color-mix(in oklch, var(--surface) 80%, var(--background));
+  --code-border: var(--border);
+  --code-lang: var(--text-secondary);
+  --panel-hover: var(--sidebar-hover);
+  --panel-active: var(--sidebar-active);
+  --overlay: var(--sidebar-bg);
+  --topbar: color-mix(in oklch, var(--background) 88%, transparent);
+  --focus-ring: color-mix(in oklch, var(--primary) 18%, transparent);
+  --focus-border: var(--primary);
+  --card-hover: color-mix(in oklch, var(--primary) 35%, var(--border));
+
+  --success: #16a34a;
+  --warning: #d97706;
+  --destructive: #dc2626;
+  --info: var(--primary);
+
+  --scrollbar-thumb: var(--border);
+  --scrollbar-thumb-hover: color-mix(in oklch, var(--text-secondary) 40%, var(--border));
+  --scrollbar-track: transparent;
+
+  --button-text: var(--text-primary);
+  --button-border: var(--border);
+  --button-disabled: color-mix(in oklch, var(--text-secondary) 55%, var(--border));
+
+  --hero-from: var(--surface-elevated);
+  --hero-to: var(--background);
+  --profile-from: var(--surface-elevated);
+  --profile-to: var(--background);
+  --card-company-from: var(--surface);
+  --card-company-to: var(--surface-elevated);
+  --qa-border: var(--border);
+  --say-text: var(--text-primary);
+  --def-text: var(--text-secondary);
+  --tip-text: var(--warning);
+  --mistake-text: var(--destructive);
+  --pill-info-text: var(--primary);
+}
+
+/* ================================ LIGHT THEMES ================================ */
+
+:root,
+[data-theme="carbon-enterprise"] {
+  --background: #f8fafc;
+  --surface: #eef2f6;
+  --surface-elevated: #ffffff;
+  --border: #d9e2ec;
+  --text-primary: #161616;
+  --text-secondary: #525252;
+  --primary: #0f62fe;
+  --primary-foreground: #ffffff;
+  --sidebar-bg: #ffffff;
+  --sidebar-active: #e8f0ff;
+  --sidebar-hover: #f2f6ff;
+  --gradient-brand: linear-gradient(135deg, #0f62fe 0%, #4589ff 100%);
+}
+
+[data-theme="notion-studio"] {
+  --background: #fbfbfa;
+  --surface: #f5f4f2;
+  --surface-elevated: #ffffff;
+  --border: #e8e6e3;
+  --text-primary: #37352f;
+  --text-secondary: #787774;
+  --primary: #5645d4;
+  --primary-foreground: #ffffff;
+  --sidebar-bg: #ffffff;
+  --sidebar-active: #edeafc;
+  --sidebar-hover: #f5f3fb;
+  --gradient-brand: linear-gradient(135deg, #5645d4 0%, #6958e0 100%);
+}
+
+[data-theme="graphite-premium"] {
+  --background: #fafbfc;
+  --surface: #f3f5f7;
+  --surface-elevated: #ffffff;
+  --border: #e4e8ee;
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --primary: #635bff;
+  --primary-foreground: #ffffff;
+  --sidebar-bg: #ffffff;
+  --sidebar-active: #f0efff;
+  --sidebar-hover: #f7f6ff;
+  --gradient-brand: linear-gradient(135deg, #635bff 0%, #7c73ff 100%);
+}
+
+[data-theme="ocean-cyan"] {
+  --background: #f4fafc;
+  --surface: #e9f4f8;
+  --surface-elevated: #ffffff;
+  --border: #d3e7ee;
+  --text-primary: #0c2530;
+  --text-secondary: #4f6b75;
+  --primary: #0891b2;
+  --primary-foreground: #ffffff;
+  --sidebar-bg: #ffffff;
+  --sidebar-active: #e1f1f6;
+  --sidebar-hover: #eef7fa;
+  --gradient-brand: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+}
+
+[data-theme="linear-lavender"] {
+  --background: #f8f8fc;
+  --surface: #f0f0f8;
+  --surface-elevated: #ffffff;
+  --border: #e4e4ef;
+  --text-primary: #1a1a2e;
+  --text-secondary: #6b6b80;
+  --primary: #5e6ad2;
+  --primary-foreground: #ffffff;
+  --sidebar-bg: #ffffff;
+  --sidebar-active: #eceef9;
+  --sidebar-hover: #f4f5fb;
+  --gradient-brand: linear-gradient(135deg, #5e6ad2 0%, #7c85e0 100%);
+}
+
+/* ================================ DARK THEMES ================================ */
+
+[data-theme="graphite-dark"] {
+  --background: #0c0d0f;
+  --surface: #16181b;
+  --surface-elevated: #1c1f23;
+  --border: #2b2f34;
+  --text-primary: #e8eaec;
+  --text-secondary: #9a9ea6;
+  --primary: #d4d4d8;
+  --primary-foreground: #18181b;
+  --sidebar-bg: #0e0f12;
+  --sidebar-active: #1d2024;
+  --sidebar-hover: #15171a;
+  --gradient-brand: linear-gradient(135deg, #52525b 0%, #a1a1aa 100%);
+
+  --success: #34d399;
+  --warning: #fbbf24;
+  --destructive: #f87171;
+}
+
+[data-theme="linear-obsidian"] {
+  --background: #010102;
+  --surface: #0f1011;
+  --surface-elevated: #141516;
+  --border: #23252a;
+  --text-primary: #ededef;
+  --text-secondary: #8b8b8f;
+  --primary: #5e6ad2;
+  --primary-foreground: #ffffff;
+  --sidebar-bg: #0a0a0b;
+  --sidebar-active: #18191b;
+  --sidebar-hover: #121213;
+  --gradient-brand: linear-gradient(135deg, #5e6ad2 0%, #7c85e0 100%);
+
+  --success: #34d399;
+  --warning: #fbbf24;
+  --destructive: #f87171;
+}
+
+[data-theme="midnight-dark"] {
+  --background: #0b0f1a;
+  --surface: #121826;
+  --surface-elevated: #182032;
+  --border: #283145;
+  --text-primary: #e7ecf5;
+  --text-secondary: #99a4b8;
+  --primary: #818cf8;
+  --primary-foreground: #0b0f1a;
+  --sidebar-bg: #0d121e;
+  --sidebar-active: #1b2336;
+  --sidebar-hover: #141a29;
+  --gradient-brand: linear-gradient(135deg, #818cf8 0%, #a855f7 100%);
+
+  --success: #34d399;
+  --warning: #fbbf24;
+  --destructive: #f87171;
+}
+
+[data-theme="vercel-midnight"] {
+  --background: #000000;
+  --surface: #0a0a0a;
+  --surface-elevated: #111111;
+  --border: #333333;
+  --text-primary: #ededed;
+  --text-secondary: #888888;
+  --primary: #ededed;
+  --primary-foreground: #000000;
+  --sidebar-bg: #050505;
+  --sidebar-active: #1a1a1a;
+  --sidebar-hover: #0f0f0f;
+  --gradient-brand: linear-gradient(135deg, #ffffff 0%, #a1a1a1 100%);
+
+  --success: #34d399;
+  --warning: #fbbf24;
+  --destructive: #f87171;
+}
+
+[data-theme="neon-cyber"] {
+  --background: #07090f;
+  --surface: #0d111c;
+  --surface-elevated: #121829;
+  --border: #1e2a45;
+  --text-primary: #e6f0ff;
+  --text-secondary: #8aa0c4;
+  --primary: #22d3ee;
+  --primary-foreground: #04141a;
+  --sidebar-bg: #080b13;
+  --sidebar-active: #16203a;
+  --sidebar-hover: #0f1626;
+  --gradient-brand: linear-gradient(135deg, #22d3ee 0%, #a855f7 100%);
+
+  --success: #2dd4bf;
+  --warning: #fbbf24;
+  --destructive: #fb7185;
+}
