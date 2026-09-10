@@ -1,6 +1,7 @@
 export type MdBlock =
   | { type: "p"; text: string }
-  | { type: "code"; code: string }
+  | { type: "h"; text: string }
+  | { type: "code"; code: string; lang?: string }
   | { type: "ul"; items: string[] }
   | { type: "ol"; items: string[] }
   | { type: "table"; headers: string[]; rows: string[][] };
@@ -37,7 +38,21 @@ export type TopicMeta = {
   hubBadge?: string;
   navNext: { href: string; label: string };
   extraLinks?: { href: string; label: string }[];
+  learningHref?: string;
 };
+
+export type LearningTopicMeta = {
+  id: string;
+  file: string;
+  title: string;
+  pill: string;
+  description: string;
+  interviewHref: string;
+  navNext: { href: string; label: string };
+  extraLinks?: { href: string; label: string }[];
+};
+
+export type NotesVariant = "interview" | "learning";
 
 export type ListItem = {
   id: string;

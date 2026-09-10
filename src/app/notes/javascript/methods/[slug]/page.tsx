@@ -37,6 +37,7 @@ export default async function JsMethodPage({ params }: Props) {
       nextLabel={next.title}
       extraLinks={[
         { href: "/notes/javascript/methods", label: "All methods →" },
+        { href: "/notes/learn/javascript", label: "JavaScript learning →" },
         { href: "/notes/javascript", label: "JavaScript Q&A →" },
       ]}
       searchPlaceholder="Search methods…"

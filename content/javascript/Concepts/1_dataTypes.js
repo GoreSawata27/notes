@@ -54,10 +54,10 @@ typeof function () {}; // "function"
 // Looks like mutation — but it’s not.
 // What actually happens:
 
-// JS creates a temporary object:
-new String("hello");
-
-Calls.toUpperCase();
+// JS creates a temporary object, calls the method, then discards it:
+const upper = "hello".toUpperCase();
+console.log(upper); // "HELLO"
+console.log("hello"); // still "hello"
 
 // Returns a new string
 

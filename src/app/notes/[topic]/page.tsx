@@ -32,7 +32,10 @@ export default async function TopicNotesPage({ params }: Props) {
       profile={page.profile}
       nextHref={page.topic.navNext.href}
       nextLabel={page.topic.navNext.label}
-      extraLinks={page.topic.extraLinks}
+      extraLinks={[
+        ...(page.topic.learningHref ? [{ href: page.topic.learningHref, label: "Learning notes →" }] : []),
+        ...(page.topic.extraLinks ?? []),
+      ]}
     />
   );
 }

@@ -37,6 +37,7 @@ export default async function JsConceptPage({ params }: Props) {
       nextLabel={next.title}
       extraLinks={[
         { href: "/notes/javascript/concepts", label: "All concepts →" },
+        { href: "/notes/learn/javascript", label: "JavaScript learning →" },
         { href: "/notes/javascript", label: "JavaScript Q&A →" },
       ]}
       searchPlaceholder="Search cards…"

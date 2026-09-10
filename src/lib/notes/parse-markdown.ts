@@ -94,3 +94,81 @@ export function parseMarkdown(md: string): NoteSection[] {
   flushBody();
   return sections.filter((section) => section.questions.length > 0);
 }
+
+export function parseLearningMarkdown(md: string): NoteSection[] {
+  const source = normalizeNewlines(md);
+  const sections: NoteSection[] = [];
+  let currentSection: NoteSection | null = null;
+  let currentQ: Question | null = null;
+  let bodyLines: string[] = [];
+
+  const flushBody = () => {
+    if (!currentQ || !currentSection) return;
+    const body = bodyLines.join("\n").trim();
+    bodyLines = [];
+
+    const takeawayMatch = body.match(
+      /\*\*Takeaway:\*\*\s*([\s\S]*?)(?=\*\*Explain:\*\*|\*\*Tip:\*\*|\*\*Try it:\*\*|$)/i,
+    );
+    const explainMatch = body.match(
+      /\*\*Explain:\*\*\s*([\s\S]*?)(?=\*\*Tip:\*\*|\*\*Try it:\*\*|$)/i,
+    );
+    const tipMatch = body.match(/\*\*Tip:\*\*\s*([\s\S]*?)(?=\*\*Try it:\*\*|$)/i);
+    const tryMatch = body.match(/\*\*Try it:\*\*\s*([\s\S]*?)$/i);
+
+    let explainRaw = explainMatch
+      ? explainMatch[1].trim()
+      : body.replace(/\*\*Takeaway:\*\*[\s\S]*?(?=\*\*Explain:\*\*|$)/i, "").trim();
+    explainRaw = explainRaw.replace(/^---\s*$/gm, "").trim();
+
+    const firstPara = explainRaw.split("\n\n")[0] ?? "";
+    const say = firstPara.replace(/\n/g, " ").trim();
+    const rest = explainRaw.slice(firstPara.length).trim();
+
+    currentQ.shortDef = takeawayMatch ? takeawayMatch[1].replace(/^---\s*$/gm, "").trim() : "";
+    currentQ.say = say;
+    currentQ.extra = rest ? parseBlocks(rest) : [];
+    currentQ.followUp = tipMatch ? tipMatch[1].replace(/^---\s*$/gm, "").trim() : "";
+    currentQ.mistake = tryMatch ? tryMatch[1].replace(/^---\s*$/gm, "").trim() : "";
+
+    currentSection.questions.push(currentQ);
+    currentQ = null;
+  };
+
+  for (const line of source.split("\n")) {
+    if (line.startsWith("## ") && !/^## Profile/i.test(line)) {
+      flushBody();
+      const title = line.replace(/^##\s+/, "").replace(/^Section \d+:\s*/i, "").trim();
+      currentSection = { id: "", title, questions: [] };
+      currentSection.id = `t${sections.length + 1}-${slugify(title)}`;
+      sections.push(currentSection);
+      continue;
+    }
+
+    const lessonHeading = line.match(/^### (?:Lesson\s+)?L?(\d+)\.\s*(.+)$/i);
+    if (lessonHeading) {
+      flushBody();
+      if (!currentSection) {
+        currentSection = { id: "t1-general", title: "General", questions: [] };
+        sections.push(currentSection);
+      }
+      currentQ = {
+        num: Number.parseInt(lessonHeading[1], 10),
+        text: lessonHeading[2].replace(/\s+/g, " ").trim(),
+        mustKnow: false,
+        tag: "",
+        shortDef: "",
+        say: "",
+        extra: [],
+        followUp: "",
+        mistake: "",
+      };
+      continue;
+    }
+
+    if (currentQ) bodyLines.push(line);
+  }
+
+  flushBody();
+  return sections.filter((section) => section.questions.length > 0);
+}

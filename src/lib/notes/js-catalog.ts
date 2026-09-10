@@ -111,10 +111,22 @@ export const JS_CONCEPTS: JsCatalogEntry[] = [
     files: ["javascript/Concepts/Regex.js"],
   },
   {
-    slug: "typescript-types",
-    title: "TypeScript Types",
-    description: "Interfaces, unions, generics, and API response types.",
-    files: ["typescript/index.ts"],
+    slug: "storage",
+    title: "Storage",
+    description: "localStorage, sessionStorage, cookies, and IndexedDB.",
+    files: ["javascript/Concepts/Storage.js"],
+  },
+  {
+    slug: "fetch",
+    title: "Fetch & HTTP",
+    description: "fetch, AbortController, retries, FormData, and CORS.",
+    files: ["javascript/Concepts/Fetch.js"],
+  },
+  {
+    slug: "web-apis",
+    title: "Web APIs",
+    description: "Observers, Web Workers, and idle scheduling.",
+    files: ["javascript/Concepts/WebApis.js"],
   },
 ];
 

@@ -5,10 +5,10 @@ import { getHubData } from "@/lib/notes/load-notes";
 
 export const metadata: Metadata = {
   title: {
-    default: "Interview Notes",
-    template: "%s | Interview Notes",
+    default: "Frontend Notes",
+    template: "%s | Frontend Notes",
   },
-  description: "Frontend interview Q&A, JS cheatsheets, and live practice",
+  description: "Frontend interview Q&A, learning notes, JS cheatsheets, and live practice",
 };
 
 export default function HomePage() {

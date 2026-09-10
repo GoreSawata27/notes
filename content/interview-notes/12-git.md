@@ -961,3 +961,110 @@ git log HEAD..origin/local --oneline
 **Follow-up:** What is your undo ladder? — restore for dirty files, amend/reset for unpushed commits, revert for pushed ones, reflog when it looks gone.
 
 **Common mistake:** Only listing commands with no mental model of working tree, index, and refs.
+
+---
+
+## Real-World Workflows
+
+### Q59. How do you create a branch from a specific commit? [must-know]
+
+**Short definition:** `git switch -c` (or `checkout -b`) with a commit hash creates a new branch starting at that exact snapshot.
+
+**Answer:** When bad work landed on a shared branch but an older commit is still good, branch from that hash and rebuild cleanly. The new branch pointer starts at the hash you give — no files are copied twice; Git just moves a ref. Use the full SHA or a unique short form (7+ chars).
+
+```powershell
+git switch -c feature/my-clean-fix 12db09c
+# equivalent older syntax:
+git checkout -b feature/my-clean-fix 12db09c
+```
+
+**Follow-up:** What if you only have the bad commit hash? — Use its parent: `git rev-parse 0495213^` gives the commit before it.
+
+**Common mistake:** Creating the branch with `git branch name` without switching, then editing files on the wrong branch.
+
+---
+
+### Q60. How do you find which branches contain a commit?
+
+**Short definition:** `git branch -a --contains <hash>` lists every local and remote-tracking branch whose history includes that commit.
+
+**Answer:** Before reverting or resetting, inspect where the commit lives. If it is on `local`, `origin/local`, and `origin/qa`, all three need updating. After a hard reset, the commit may still exist on a backup branch — that is expected and safe.
+
+```powershell
+git branch -a --contains 049521343e07a21d80fe77600d9d937a3a2f87bd
+git log --oneline --graph --all -20
+```
+
+**Follow-up:** How do you see what a commit changed? — `git show <hash> --stat`
+
+**Common mistake:** Assuming a force-push deleted the commit object. It still exists on backup branches and in reflog until garbage collection.
+
+---
+
+### Q61. How do you remove bad commits from a shared branch when you have a backup? [must-know]
+
+**Short definition:** Backup first, `git reset --hard` to the last good commit, then `git push --force-with-lease` — or use `git revert` when you cannot rewrite history.
+
+**Answer:** Two strategies. **Revert** (safe, no rewrite): adds new commits that undo the bad ones; history stays intact; use when teammates already pulled. **Reset + force-with-lease** (rewrite): moves the branch pointer back to a good commit; requires a backup branch and team coordination; cleaner when follow-up commits also need removing. Always use `--force-with-lease`, not bare `--force` — lease refuses to overwrite if someone else pushed since your last fetch.
+
+```powershell
+# 1. Backup
+git switch local
+git branch backup/local-before-reset-20260907
+git push origin backup/local-before-reset-20260907
+
+# 2. Reset to last good commit (parent of bad commit)
+git reset --hard 12db09c
+
+# 3. Force-push safely
+git push --force-with-lease origin local
+```
+
+| Situation                              | Command                               | Rewrites history? |
+| -------------------------------------- | ------------------------------------- | ----------------- |
+| Solo, not pushed                       | `git reset --soft HEAD~1`             | Yes, local only   |
+| Shared branch, no backup               | `git revert <hash>`                   | No                |
+| Shared branch, backup exists + team OK | `reset --hard` + `--force-with-lease` | Yes               |
+| One commit on wrong branch             | `git cherry-pick` to correct branch   | No                |
+
+**Follow-up:** Revert vs reset when 5 follow-up commits touch the same files? — Revert each in reverse order (slow, conflicts likely) or reset to before the bad commit if you have a backup and clean replacement branch.
+
+**Common mistake:** Force-pushing `local` or `qa` without a backup and without telling teammates — their next pull will diverge badly.
+
+---
+
+### Q62. Real example — reset local/qa and rebuild a feature cleanly (TRIEC mentor verify)
+
+**Short definition:** When intern work polluted shared branches, backup `local`, reset `local` and `qa` to the baseline before the bad commit, then merge a clean feature branch manually.
+
+**Answer:** Bad commit `0495213` added mentor intake form changes to global CSS and `VerifyEmail.js`. Five follow-up commits built on the same files. A clean rebuild was done on `feature/mentor-verify-clean` branched from `12db09c` (the commit before `0495213`). Steps taken: (1) backup `local` to `origin/local-ref-code`, (2) `git reset --hard 12db09c` on `local` and `qa`, (3) `git push --force-with-lease` both, (4) manually merge `feature/mentor-verify-clean` into `local`, then `local` into `qa`.
+
+```powershell
+# Inspect
+git show 0495213 --stat
+git rev-parse 0495213^                    # → 12db09c (reset target)
+git branch -a --contains 0495213
+
+# Clean rebuild branch (done earlier)
+git switch -c feature/mentor-verify-clean 12db09c
+# ... rebuild feature, commit, push ...
+
+# Reset shared branches (after backup)
+git switch local && git reset --hard 12db09c && git push --force-with-lease origin local
+git switch qa    && git reset --hard 12db09c && git push --force-with-lease origin qa
+
+# Manual merge (you do this after reset)
+git switch local
+git merge feature/mentor-verify-clean -m "Add clean mentor verify email implementation"
+git push origin local
+
+git switch qa
+git merge local -m "Merge local: clean mentor verify email"
+git push origin qa
+```
+
+**Follow-up:** Teammates stuck after force-push? — `git fetch origin && git reset --hard origin/local` (or `origin/qa`).
+
+**Common mistake:** Trying `git revert 0495213` alone when five later commits modified the same lines — conflicts at every step. Reset-to-baseline + clean merge is faster when a replacement branch already exists.
+
+---

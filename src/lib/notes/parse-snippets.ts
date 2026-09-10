@@ -1,5 +1,5 @@
-import { normalizeNewlines, parseTableLines } from "./markdown";
-import type { MdBlock, SnippetCard } from "./types";
+import { normalizeNewlines, parseCommentBlocks } from "./markdown";
+import type { SnippetCard } from "./types";
 
 function isLineComment(line: string): boolean {
   return line.trimStart().startsWith("//");
@@ -25,27 +25,55 @@ function isBlockCommentStart(line: string): boolean {
   return line.trim().startsWith("/*");
 }
 
+function cleanTitle(raw: string): string {
+  return raw
+    .replace(/^#{1,3}\s+/, "")
+    .replace(/^\d+\.\s+/, "")
+    .replace(/^(?:📌|👤|📦|🏠|🔐|🔁|💬|🧱)\s*/, "")
+    .replace(/[:.]+$/, "")
+    .trim();
+}
+
 function extractTitle(commentLines: string[]): string {
-  const first = commentLines.map((l) => l.trim()).find(Boolean) ?? "Notes";
+  const first =
+    commentLines
+      .map((l) => l.trim())
+      .find((line) => line && !/^[-=*_~]{3,}$/.test(line) && !line.startsWith("|")) ?? "Notes";
   const method = first.match(/^The\s+(`?[\w.]+(?:\(\))?`?)(?:\s+\(static method\))?/i);
   if (method && (/\(\)/.test(method[1]) || /\bmethod\b/i.test(first))) {
     const name = method[1].replace(/`/g, "");
     return /\(static method\)/i.test(first) ? `${name} (static)` : name;
   }
   const numbered = first.match(/^\d+\.\s+(.+)/);
-  if (numbered) return numbered[1].replace(/\.$/, "");
-  if (first.length <= 72) return first.replace(/\.$/, "");
-  return first.split(/[.:]/)[0]?.slice(0, 60) || "Notes";
+  if (numbered) return cleanTitle(numbered[1]);
+  const cleaned = cleanTitle(first);
+  if (cleaned.length <= 72) return cleaned;
+  return cleaned.split(/[.:]/)[0]?.slice(0, 60) || "Notes";
 }
 
 function extractTitleFromText(text: string): string {
-  const first =
-    text
-      .split("\n")
-      .map((l) => l.trim())
-      .find(Boolean) ?? "Notes";
-  if (first.length <= 72) return first.replace(/\.$/, "");
-  return first.split(/[.:]/)[0]?.slice(0, 60) || "Notes";
+  const lines = text
+    .split("\n")
+    .map((l) => l.trim())
+    .filter((line) => line && !/^[-=*_~]{3,}$/.test(line));
+  const first = lines.find((line) => !line.startsWith("|")) ?? "";
+  if (first) {
+    const cleaned = cleanTitle(first);
+    if (cleaned.length <= 72) return cleaned;
+    return cleaned.split(/[.:]/)[0]?.slice(0, 60) || "Notes";
+  }
+  const tableLine = lines.find((line) => line.startsWith("|"));
+  if (tableLine) {
+    const header = tableLine
+      .replace(/^\|/, "")
+      .replace(/\|$/, "")
+      .split("|")
+      .map((cell) => cell.trim())
+      .filter(Boolean)
+      .join(" · ");
+    if (header) return header.slice(0, 60);
+  }
+  return "Notes";
 }
 
 function peekNonEmpty(lines: string[], start: number): string | undefined {
@@ -83,23 +111,17 @@ function readBlockComment(lines: string[], start: number): { body: string; next:
 
 function blockToCard(body: string): SnippetCard | null {
   if (!body) return null;
-  const lines = body.split("\n");
-  const tableStart = lines.findIndex((line, idx) => line.trim().startsWith("|") && idx + 1 < lines.length);
-  const tableLines = lines.filter((line) => line.trim().startsWith("|")).map((line) => line.trim());
-  const table = tableLines.length >= 2 ? parseTableLines(tableLines) : null;
-  const explanation = table
-    ? lines
-        .filter((line) => !line.trim().startsWith("|"))
-        .join("\n")
-        .trim()
-    : body;
-  const extra: MdBlock[] | undefined = table ? [table] : undefined;
-  void tableStart;
+  const extra = parseCommentBlocks(body);
+  const explanation = extra
+    .filter((block) => block.type === "p" || block.type === "h")
+    .map((block) => (block.type === "p" || block.type === "h" ? block.text : ""))
+    .join("\n")
+    .trim();
   return {
     title: extractTitleFromText(explanation || body),
-    explanation,
+    explanation: explanation || body,
     code: "",
-    extra,
+    extra: extra.length ? extra : undefined,
   };
 }
 

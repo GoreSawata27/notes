@@ -35,6 +35,7 @@
 }
 
 .notes-app pre {
+  position: relative;
   font-family: var(--font-notes-mono), "IBM Plex Mono", ui-monospace, monospace;
   white-space: pre-wrap;
   word-break: break-word;
@@ -44,7 +45,7 @@
   background: #0a101c;
   border: 1px solid #1d2a40;
   border-radius: 0.55rem;
-  padding: 0.7rem 0.8rem;
+  padding: 0.85rem 0.8rem;
   color: #cfe0ff;
 }
 
@@ -235,6 +236,12 @@
   font-size: 0.94rem;
 }
 
+.notes-app .hero-note {
+  margin: 0.35rem 0 0;
+  color: var(--accent-2);
+  font-size: 0.86rem;
+}
+
 .notes-app .topic {
   border: 1px solid var(--line);
   background: var(--panel);
@@ -304,6 +311,10 @@
   font-family: var(--font-notes-mono), "IBM Plex Mono", ui-monospace, monospace;
 }
 
+.notes-app .qa-learning .q-num {
+  color: var(--accent-2);
+}
+
 .notes-app .q-title {
   flex: 1;
 }
@@ -364,7 +375,23 @@
   font-size: 0.86rem;
   font-style: italic;
   line-height: 1.5;
-  white-space: pre-wrap;
+}
+
+.notes-app .md-heading {
+  margin: 0.85rem 0 0.35rem;
+  color: var(--text);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.notes-app .code-lang {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.55rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #7f97b8;
 }
 
 .notes-app .pill-info {

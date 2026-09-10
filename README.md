@@ -23,56 +23,71 @@ Open [http://localhost:3000](http://localhost:3000).
 
 Each exercise has its own URL and sidebar nav under `/practice`:
 
-| Path | Exercise |
-|------|----------|
-| `/practice/nested-checkbox` | Nested checkbox |
-| `/practice/carousel` | Carousel |
-| `/practice/tab` | Tabs |
-| `/practice/dropdown` | Dropdown / overlay close |
-| `/practice/accordion` | Accordion |
-| `/practice/search-bar` | Search bar |
-| `/practice/star-rating` | Star rating |
-| `/practice/phone-book` | Phone book |
-| `/practice/todo-list` | Todo list |
-| `/practice/input-edit` | Input edit |
-| `/practice/nested-comments` | Nested comments |
-| `/practice/form` | Dynamic form |
-| `/practice/reducer` | useReducer todo |
-| `/practice/traffic` | Traffic light |
-| `/practice/show-toast` | Toast notifications |
-| `/practice/multi-select` | Multi select dropdown |
-| `/practice/table-search` | Table with search/filter |
-| `/practice/timer` | Stopwatch + countdown |
+| Path                        | Exercise                 |
+| --------------------------- | ------------------------ |
+| `/practice/nested-checkbox` | Nested checkbox          |
+| `/practice/carousel`        | Carousel                 |
+| `/practice/tab`             | Tabs                     |
+| `/practice/dropdown`        | Dropdown / overlay close |
+| `/practice/accordion`       | Accordion                |
+| `/practice/search-bar`      | Search bar               |
+| `/practice/star-rating`     | Star rating              |
+| `/practice/phone-book`      | Phone book               |
+| `/practice/todo-list`       | Todo list                |
+| `/practice/input-edit`      | Input edit               |
+| `/practice/nested-comments` | Nested comments          |
+| `/practice/form`            | Dynamic form             |
+| `/practice/reducer`         | useReducer todo          |
+| `/practice/traffic`         | Traffic light            |
+| `/practice/show-toast`      | Toast notifications      |
+| `/practice/multi-select`    | Multi select dropdown    |
+| `/practice/table-search`    | Table with search/filter |
+| `/practice/timer`           | Stopwatch + countdown    |
 
 ### Learn (Next.js)
 
 Start at [`/learn`](/learn) for the **interview summary table**, then open each demo:
 
-| Path | Topic |
-|------|--------|
-| `/learn` | Cheat sheet: CSR, SSR, SSG, ISR, PPR, Streaming |
-| `/learn/csr-demo` | Client-side rendering |
-| `/learn/ssr-demo` | Server-side rendering |
-| `/learn/rendering` | Static site generation (SSG) |
-| `/learn/isr-demo` | ISR (`revalidate: 60`) |
-| `/learn/streaming-demo` | Streaming + Suspense |
-| `/learn/ppr-demo` | Partial prerendering pattern |
-| `/learn/metadata-demo` | Metadata API |
+| Path                    | Topic                                           |
+| ----------------------- | ----------------------------------------------- |
+| `/learn`                | Cheat sheet: CSR, SSR, SSG, ISR, PPR, Streaming |
+| `/learn/csr-demo`       | Client-side rendering                           |
+| `/learn/ssr-demo`       | Server-side rendering                           |
+| `/learn/rendering`      | Static site generation (SSG)                    |
+| `/learn/isr-demo`       | ISR (`revalidate: 60`)                          |
+| `/learn/streaming-demo` | Streaming + Suspense                            |
+| `/learn/ppr-demo`       | Partial prerendering pattern                    |
+| `/learn/metadata-demo`  | Metadata API                                    |
+
+### Interview notes
+
+Hub section **Interview Prep** at `/`. Topic pages live at `/notes/{id}`:
+
+HTML, CSS, JavaScript, TypeScript, Tailwind, React, Next.js, Redux, React Query, Jest, Git, Realtime, plus company prep.
+
+### Learning notes
+
+Hub section **Learning Notes** at `/`. Topic pages live at `/notes/learn/{id}`:
+
+HTML, CSS, JavaScript (lessons + concept/method cheatsheets), TypeScript, Tailwind, React, Next.js, Redux, React Query, Jest, Git, Realtime.
 
 ### Markdown notes (repo)
 
+- `content/interview-notes/` — spoken Q&A
+- `content/learning-notes/` — tutorial-style lessons
+- `content/javascript/` — JS concept and method snippets
+- `content/typescript/` — types cheatsheet snippets
 - `content/notes/next/` — rendering paradigms, metadata, App Router routes
-- `content/javascript/` — JS concept snippets (run with Node as needed)
 - `content/axios-interceptors/` — reference snippets for React vs Next
 
 ## Scripts
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Development server |
-| `npm run build` | Production build |
+| Command         | Description             |
+| --------------- | ----------------------- |
+| `npm run dev`   | Development server      |
+| `npm run build` | Production build        |
 | `npm run start` | Start production server |
-| `npm run lint` | ESLint |
+| `npm run lint`  | ESLint                  |
 
 ## Stack
 

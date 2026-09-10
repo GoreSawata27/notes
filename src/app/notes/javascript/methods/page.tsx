@@ -13,6 +13,7 @@ export default function JsMethodsIndexPage() {
     <div className="hub-page">
       <p className="links" style={{ marginTop: 0, marginBottom: "1.25rem" }}>
         <Link href="/">← Hub</Link>
+        <Link href="/notes/learn/javascript">JavaScript learning →</Link>
         <Link href="/notes/javascript">JavaScript Q&amp;A →</Link>
         <Link href="/notes/javascript/concepts">JS Concepts →</Link>
       </p>
@@ -20,8 +21,8 @@ export default function JsMethodsIndexPage() {
         JS <span>Methods</span>
       </h1>
       <p className="hub-lede">
-        Array, Object, and String APIs as expandable cards — one method per card, parsed from the
-        old notes files.
+        Legacy index — all method cards now live on the{" "}
+        <Link href="/notes/learn/javascript">JavaScript learning page</Link>.
       </p>
       <div className="cards">
         {JS_METHODS.map((entry) => (

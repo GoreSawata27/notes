@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState, type ReactNode } from "react";
-import type { ListItem, ListSection } from "@/lib/notes/types";
+import type { ListItem, ListSection, NotesVariant } from "@/lib/notes/types";
 import { InlineMd } from "./InlineMd";
 import { MdBlocks } from "./MdBlocks";
 
@@ -20,15 +20,19 @@ function QuestionCard({
   item,
   open,
   onToggle,
+  variant,
 }: {
   item: ListItem;
   open: boolean;
   onToggle: (open: boolean) => void;
+  variant: NotesVariant;
 }) {
   const badge = badgeLabel(item.badge);
+  const tipLabel = variant === "learning" ? "Tip" : "Follow-up";
+  const mistakeLabel = variant === "learning" ? "Try it" : "Common mistake";
   return (
     <details
-      className="qa"
+      className={variant === "learning" ? "qa qa-learning" : "qa"}
       open={open}
       onToggle={(event) => onToggle(event.currentTarget.open)}
     >
@@ -53,12 +57,12 @@ function QuestionCard({
         {item.extra && item.extra.length > 0 ? <MdBlocks blocks={item.extra} /> : null}
         {item.followUp ? (
           <div className="tip">
-            <strong>Follow-up:</strong> <InlineMd text={item.followUp} />
+            <strong>{tipLabel}:</strong> <InlineMd text={item.followUp} />
           </div>
         ) : null}
         {item.mistake ? (
           <div className="mistake">
-            <strong>Common mistake:</strong> <InlineMd text={item.mistake} />
+            <strong>{mistakeLabel}:</strong> <InlineMd text={item.mistake} />
           </div>
         ) : null}
       </div>
@@ -71,11 +75,13 @@ export function NotesTopicList({
   hero,
   profile,
   searchPlaceholder = "Search questions…",
+  variant = "interview",
 }: {
   sections: ListSection[];
   hero?: ReactNode;
   profile?: ReactNode;
   searchPlaceholder?: string;
+  variant?: NotesVariant;
 }) {
   const [term, setTerm] = useState("");
   const [openId, setOpenId] = useState<string | null>(null);
@@ -122,6 +128,7 @@ export function NotesTopicList({
                     key={key}
                     item={item}
                     open={openId === key}
+                    variant={variant}
                     onToggle={(isOpen) => {
                       if (isOpen) setOpenId(key);
                       else setOpenId((current) => (current === key ? null : current));
@@ -131,7 +138,11 @@ export function NotesTopicList({
               })}
             </section>
           ))}
-          {visibleCount === 0 ? <p className="empty">No questions match your search.</p> : null}
+          {visibleCount === 0 ? (
+            <p className="empty">
+              {variant === "learning" ? "No lessons match your search." : "No questions match your search."}
+            </p>
+          ) : null}
         </div>
       </main>
     </>

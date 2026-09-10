@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { ListSection, MdBlock } from "@/lib/notes/types";
+import type { ListSection, MdBlock, NotesVariant } from "@/lib/notes/types";
 import { MdBlocks } from "./MdBlocks";
 import { NotesTopicList } from "./NotesTopicList";
 
@@ -13,7 +13,9 @@ export function NotesShell({
   nextHref,
   nextLabel,
   extraLinks,
-  searchPlaceholder = "Search questions…",
+  searchPlaceholder,
+  variant = "interview",
+  heroNote,
 }: {
   brand: string;
   description: string;
@@ -25,6 +27,8 @@ export function NotesShell({
   nextLabel: string;
   extraLinks?: { href: string; label: string }[];
   searchPlaceholder?: string;
+  variant?: NotesVariant;
+  heroNote?: string;
 }) {
   return (
     <div className="shell">
@@ -52,7 +56,10 @@ export function NotesShell({
       <div className="main">
         <NotesTopicList
           sections={sections}
-          searchPlaceholder={searchPlaceholder}
+          searchPlaceholder={
+            searchPlaceholder ?? (variant === "learning" ? "Search lessons…" : "Search questions…")
+          }
+          variant={variant}
           hero={
             <section className="hero">
               <span className="pill">{pill}</span>
@@ -60,6 +67,7 @@ export function NotesShell({
               <p>
                 {description} · {countLabel} · click a card to expand
               </p>
+              {heroNote ? <p className="hero-note">{heroNote}</p> : null}
             </section>
           }
           profile={

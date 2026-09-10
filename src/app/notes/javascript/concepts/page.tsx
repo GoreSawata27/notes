@@ -13,6 +13,7 @@ export default function JsConceptsIndexPage() {
     <div className="hub-page">
       <p className="links" style={{ marginTop: 0, marginBottom: "1.25rem" }}>
         <Link href="/">← Hub</Link>
+        <Link href="/notes/learn/javascript">JavaScript learning →</Link>
         <Link href="/notes/javascript">JavaScript Q&amp;A →</Link>
         <Link href="/notes/javascript/methods">JS Methods →</Link>
       </p>
@@ -20,8 +21,9 @@ export default function JsConceptsIndexPage() {
         JS <span>Concepts</span>
       </h1>
       <p className="hub-lede">
-        The old snippet folder, arranged as cards. Each topic is parsed from comments and examples —
-        nothing here is executed.
+        Legacy index — all concept cards now live on the{" "}
+        <Link href="/notes/learn/javascript">JavaScript learning page</Link>. TypeScript types moved to{" "}
+        <Link href="/notes/learn/typescript">TypeScript learning</Link>.
       </p>
       <div className="cards">
         {JS_CONCEPTS.map((entry) => (

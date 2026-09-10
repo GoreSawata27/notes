@@ -23,32 +23,33 @@ function CardGrid({ cards, company }: { cards: HubCard[]; company?: boolean }) {
 
 export function NotesHub({
   totalQuestions,
-  core,
-  cheatsheets,
+  interview,
+  learning,
   company,
   playground,
 }: {
   totalQuestions: number;
-  core: HubCard[];
-  cheatsheets: HubCard[];
+  interview: HubCard[];
+  learning: HubCard[];
   company: HubCard[];
   playground: HubCard[];
 }) {
   return (
     <div className="hub-page">
       <h1 className="hub-brand">
-        Frontend <span>Interview Notes</span>
+        Frontend <span>Notes</span>
       </h1>
       <p className="hub-lede">
-        Interview Q&amp;A, JS cheatsheets, and live practice in one app — {totalQuestions} questions
-        with spoken answers, plus concept cards and machine-coding demos.
+        Interview Q&amp;A, in-depth learning tracks, JS cheatsheets, and live practice —{" "}
+        {totalQuestions} interview questions with spoken answers, plus tutorial-style lessons and
+        machine-coding demos.
       </p>
 
-      <h2 className="hub-section-title">Core Topics</h2>
-      <CardGrid cards={core} />
+      <h2 className="hub-section-title">Interview Prep</h2>
+      <CardGrid cards={interview} />
 
-      <h2 className="hub-section-title">JS Cheatsheets</h2>
-      <CardGrid cards={cheatsheets} />
+      <h2 className="hub-section-title">Learning Notes</h2>
+      <CardGrid cards={learning} />
 
       <h2 className="hub-section-title hub-section-company">Company Prep</h2>
       <CardGrid cards={company} company />
@@ -77,7 +78,10 @@ export function NotesHub({
           </tbody>
         </table>
       </section>
-      <p className="hub-foot">Q&amp;A from Markdown · JS snippets as cards · Practice and Learn stay interactive</p>
+      <p className="hub-foot">
+        Interview Q&amp;A from Markdown · Learning lessons as cards · JS snippets as cheatsheets ·
+        Practice and Learn stay interactive
+      </p>
     </div>
   );
 }

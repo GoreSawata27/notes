@@ -12,9 +12,17 @@ export function MdBlocks({ blocks }: { blocks: MdBlock[] }) {
             </p>
           );
         }
+        if (block.type === "h") {
+          return (
+            <h4 key={index} className="md-heading">
+              <InlineMd text={block.text} />
+            </h4>
+          );
+        }
         if (block.type === "code") {
           return (
-            <pre key={index}>
+            <pre key={index} data-lang={block.lang || undefined}>
+              {block.lang ? <span className="code-lang">{block.lang}</span> : null}
               <code>{block.code}</code>
             </pre>
           );

@@ -9,6 +9,7 @@ export const NOTE_TOPICS: TopicMeta[] = [
     pill: "Structure & semantics",
     description: "HTML5, semantic elements, forms, accessibility, SEO, and performance.",
     navNext: { href: "/notes/css", label: "CSS notes" },
+    learningHref: "/notes/learn/html",
   },
   {
     id: "css",
@@ -18,6 +19,7 @@ export const NOTE_TOPICS: TopicMeta[] = [
     pill: "Layout & styling",
     description: "Selectors, cascade, Flexbox, Grid, responsive design, and animations.",
     navNext: { href: "/notes/javascript", label: "JavaScript notes" },
+    learningHref: "/notes/learn/css",
   },
   {
     id: "javascript",
@@ -27,10 +29,8 @@ export const NOTE_TOPICS: TopicMeta[] = [
     pill: "Core language",
     description: "From types and closures to async, DOM, and machine-coding classics.",
     navNext: { href: "/notes/typescript", label: "TypeScript notes" },
-    extraLinks: [
-      { href: "/notes/javascript/concepts", label: "JS Concepts →" },
-      { href: "/notes/javascript/methods", label: "JS Methods →" },
-    ],
+    extraLinks: [{ href: "/notes/learn/javascript", label: "JavaScript learning →" }],
+    learningHref: "/notes/learn/javascript",
   },
   {
     id: "typescript",
@@ -39,8 +39,20 @@ export const NOTE_TOPICS: TopicMeta[] = [
     title: "TypeScript",
     pill: "Static typing",
     description: "Types, interfaces, generics, utility types, React and Next.js patterns.",
+    navNext: { href: "/notes/tailwind", label: "Tailwind notes" },
+    extraLinks: [{ href: "/notes/learn/typescript", label: "TypeScript learning →" }],
+    learningHref: "/notes/learn/typescript",
+  },
+  {
+    id: "tailwind",
+    category: "core",
+    file: "13-tailwindcss.md",
+    title: "Tailwind CSS",
+    pill: "Utility-first CSS",
+    description:
+      "v4 CSS-first config, utilities, responsive design, dark mode, cn()/purge pitfalls, Next.js, and a11y.",
     navNext: { href: "/notes/react", label: "React notes" },
-    extraLinks: [{ href: "/notes/javascript/concepts/typescript-types", label: "Types cheatsheet →" }],
+    learningHref: "/notes/learn/tailwind",
   },
   {
     id: "react",
@@ -50,6 +62,7 @@ export const NOTE_TOPICS: TopicMeta[] = [
     pill: "UI library",
     description: "Hooks, rendering, performance, routing, patterns, and TypeScript.",
     navNext: { href: "/notes/nextjs", label: "Next.js notes" },
+    learningHref: "/notes/learn/react",
   },
   {
     id: "nextjs",
@@ -60,6 +73,7 @@ export const NOTE_TOPICS: TopicMeta[] = [
     description: "App Router, RSC, SSR/SSG/ISR, Server Actions, auth, and deployment.",
     navNext: { href: "/notes/redux", label: "Redux notes" },
     extraLinks: [{ href: "/learn", label: "Live rendering demos →" }],
+    learningHref: "/notes/learn/nextjs",
   },
   {
     id: "redux",
@@ -70,6 +84,7 @@ export const NOTE_TOPICS: TopicMeta[] = [
     description: "Redux data flow, Redux Toolkit, async thunks, and RTK Query basics.",
     navNext: { href: "/notes/react-query", label: "React Query notes" },
     extraLinks: [{ href: "/learn/redux", label: "Redux playground →" }],
+    learningHref: "/notes/learn/redux",
   },
   {
     id: "react-query",
@@ -79,6 +94,7 @@ export const NOTE_TOPICS: TopicMeta[] = [
     pill: "Server state",
     description: "TanStack Query caching, mutations, invalidation, and testing.",
     navNext: { href: "/notes/jest", label: "Jest notes" },
+    learningHref: "/notes/learn/react-query",
   },
   {
     id: "jest",
@@ -88,6 +104,7 @@ export const NOTE_TOPICS: TopicMeta[] = [
     pill: "Testing",
     description: "Jest, React Testing Library, MSW, mocks, and interview scenarios.",
     navNext: { href: "/notes/git", label: "Git notes" },
+    learningHref: "/notes/learn/jest",
   },
   {
     id: "git",
@@ -95,8 +112,21 @@ export const NOTE_TOPICS: TopicMeta[] = [
     file: "12-git.md",
     title: "Git",
     pill: "Version control",
-    description: "Mental model, rebase, cherry-pick, stash, reset, conflicts, and Cursor Git UI.",
+    description:
+      "Mental model, rebase, cherry-pick, stash, reset, conflicts, Cursor Git UI, and real-world shared-branch recovery (Q59–Q62).",
+    navNext: { href: "/notes/realtime", label: "Realtime notes" },
+    learningHref: "/notes/learn/git",
+  },
+  {
+    id: "realtime",
+    category: "core",
+    file: "14-realtime.md",
+    title: "Realtime",
+    pill: "WebSockets & SSE",
+    description:
+      "Native WebSocket, socket.io-client, SSE, reconnect/auth, React hooks, and Next.js production constraints.",
     navNext: { href: "/notes/html", label: "HTML notes" },
+    learningHref: "/notes/learn/realtime",
   },
   {
     id: "infosys",
@@ -122,16 +152,20 @@ export const NOTE_TOPICS: TopicMeta[] = [
 ];
 
 export const STUDY_PLAN = [
-  { week: "1", topics: "HTML + CSS", focus: "Semantics, layout, responsive" },
+  { week: "1", topics: "HTML + CSS + Tailwind", focus: "Semantics, layout, utilities" },
   { week: "2", topics: "JavaScript (part 1)", focus: "Types, functions, scope, closures" },
-  { week: "3", topics: "JavaScript (part 2) + TypeScript", focus: "Async, DOM, types & generics" },
-  { week: "4", topics: "React", focus: "Hooks, Fiber, performance, React 19" },
+  {
+    week: "3",
+    topics: "JavaScript + TypeScript",
+    focus: "Dates, fetch, storage, cheatsheets, React TSX",
+  },
+  { week: "4", topics: "React", focus: "Hooks, Fiber, performance" },
   { week: "5", topics: "Next.js", focus: "App Router, RSC, auth, deployment" },
-  { week: "6", topics: "Redux + React Query", focus: "Client vs server state" },
-  { week: "7", topics: "Jest + RTL", focus: "MSW, Next.js testing" },
-  { week: "8", topics: "Infosys prep", focus: "Live coding, Redux, behavioral" },
-  { week: "9", topics: "Bajaj prep", focus: "Next.js scenarios, system design" },
-  { week: "10", topics: "Full revision", focus: "Must-know across all topics" },
+  { week: "6", topics: "Redux + React Query", focus: "Learning tracks: client vs server state" },
+  { week: "7", topics: "Jest + RTL + Git", focus: "Testing and version control learning" },
+  { week: "8", topics: "Realtime", focus: "WebSocket, socket.io, SSE, production hooks" },
+  { week: "9", topics: "Infosys + Bajaj prep", focus: "Live coding, Next.js scenarios" },
+  { week: "10", topics: "Full revision", focus: "Must-know interview + learning review" },
 ] as const;
 
 export function getTopic(id: string): TopicMeta | undefined {
